@@ -1,0 +1,274 @@
+Aurex Technologies Repo Structure Guide
+
+Big Picture
+
+This is a Next.js 15, React 19, TypeScript and Tailwind CSS website for Aurex Technologies.
+
+The app uses the Next.js App Router. Pages live inside the app folder. Most visual blocks live inside components. Shared text and data lives in lib/content.ts.
+
+
+Main Folders
+
+app/
+
+This is where the website pages are defined.
+
+app/layout.tsx
+The root layout for the whole website. It adds global metadata, loads the font, wraps everything with the theme provider and includes:
+- Header
+- Main page content
+- Footer
+- WhatsApp floating button
+
+app/page.tsx
+Homepage. Currently includes:
+- Hero section
+- Services section
+- CTA section
+
+app/about/page.tsx
+About page content.
+
+app/services/page.tsx
+Services page.
+
+app/portfolio/page.tsx
+Portfolio page. Currently empty/placeholder so you can add projects later.
+
+app/pricing/page.tsx
+Pricing page with Starter, Business and Premium plans.
+
+app/contact/page.tsx
+Contact page with email, phone, WhatsApp info and contact form.
+
+app/blog/page.tsx
+Blog page.
+
+app/faq/page.tsx
+FAQ page.
+
+app/globals.css
+Global CSS and Tailwind base styles. This controls:
+- Light/dark color variables
+- Body background
+- Selection color
+- Shared section border style
+
+Note: app/sitemap.ts and app/robots.ts were removed. They are now static files inside public/.
+
+
+components/
+
+Reusable UI and layout code.
+
+components/layout/header.tsx
+Top navigation bar. Contains:
+- Logo
+- Desktop nav
+- Mobile menu
+- Theme toggle
+- Consultation button
+
+components/layout/footer.tsx
+Footer area. Contains:
+- Logo
+- Short company text
+- Page links
+- Plain service labels
+- Copyright
+
+components/whatsapp-button.tsx
+Floating WhatsApp button.
+
+components/contact-form.tsx
+Contact form UI.
+
+components/theme-provider.tsx
+Sets up dark/light mode using next-themes.
+
+components/theme-toggle.tsx
+Sun/moon button for switching theme.
+
+components/page-hero.tsx
+Reusable hero section for inner pages like About, Services, Blog and FAQ.
+
+components/section-heading.tsx
+Reusable heading block used by sections.
+
+
+components/sections/
+
+These are full page sections.
+
+components/sections/hero-section.tsx
+Homepage hero.
+
+components/sections/services-section.tsx
+Services grid.
+
+components/sections/portfolio-section.tsx
+Portfolio area. Currently shows "Portfolio coming soon" because project cards were removed.
+
+components/sections/pricing-section.tsx
+Pricing cards.
+
+components/sections/blog-section.tsx
+Blog cards.
+
+components/sections/faq-section.tsx
+FAQ accordion/details list.
+
+components/sections/cta-section.tsx
+Final call-to-action section.
+
+components/sections/testimonials-section.tsx
+Still exists, but it is not used on homepage now. You can delete later if you do not want testimonials at all.
+
+
+components/ui/
+
+Small reusable UI primitives.
+
+components/ui/button.tsx
+Shadcn-style button component with variants like default, outline and ghost.
+
+components/ui/card.tsx
+Card components:
+- Card
+- CardHeader
+- CardTitle
+- CardDescription
+- CardContent
+
+
+lib/
+
+Shared helpers and content.
+
+lib/content.ts
+Most website data lives here:
+- Navigation items
+- Services
+- Pricing plans
+- Blog posts
+- FAQ questions
+- Values
+- Empty portfolio array
+
+If you want to change most text, start here.
+
+lib/utils.ts
+Utility function cn() for merging Tailwind classes safely.
+
+
+public/
+
+Static files served directly by the website.
+
+public/aurex-logo.png
+Logo used in header and footer.
+
+public/robots.txt
+Search engine crawling instructions.
+
+public/sitemap.xml
+Static sitemap for search engines.
+
+
+Root Config Files
+
+package.json
+Project dependencies and commands.
+
+Useful commands:
+npm run dev
+npm run build
+npm run start
+npm run lint
+npm run typecheck
+
+next.config.ts
+Next.js config. Important: build output is set to .next-build instead of .next because .next was getting locked on your system.
+
+tailwind.config.ts
+Tailwind theme setup, colors, font config, container config and animation config.
+
+postcss.config.mjs
+Required for Tailwind/PostCSS.
+
+tsconfig.json
+TypeScript config.
+
+eslint.config.mjs
+ESLint config. Ignores generated folders like .next and .next-build.
+
+.gitignore
+Tells Git what not to upload, like node_modules, .next, .next-build and .env.
+
+next-env.d.ts
+Auto-generated Next.js TypeScript helper file. Do not edit.
+
+package-lock.json
+Exact dependency versions. Commit this to GitHub.
+
+
+Files And Folders You Can Ignore
+
+node_modules/
+Installed packages. Do not edit and do not upload.
+
+.next/
+Old generated Next cache. Ignore.
+
+.next-build/
+Current generated build folder. Ignore.
+
+tsconfig.tsbuildinfo
+TypeScript cache. Ignore.
+
+
+Where To Edit Common Things
+
+Change navigation:
+lib/content.ts
+
+Change footer:
+components/layout/footer.tsx
+
+Change header:
+components/layout/header.tsx
+
+Change homepage:
+app/page.tsx
+
+Change homepage hero:
+components/sections/hero-section.tsx
+
+Change services:
+lib/content.ts
+
+Change pricing:
+lib/content.ts
+
+Change contact details:
+app/contact/page.tsx
+components/whatsapp-button.tsx
+components/sections/cta-section.tsx
+
+Change SEO title/description:
+app/layout.tsx and each page metadata.
+
+
+How The Website Loads
+
+1. app/layout.tsx wraps the full site.
+2. User visits a route, like /services.
+3. Next loads app/services/page.tsx.
+4. That page imports reusable components.
+5. Components read data from lib/content.ts.
+6. Tailwind styles come from class names and app/globals.css.
+
+The structure is clean:
+- Pages decide layout.
+- Sections display content.
+- lib/content.ts stores most text.
