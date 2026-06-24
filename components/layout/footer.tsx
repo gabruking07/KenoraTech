@@ -3,10 +3,16 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { navItems, services } from "@/lib/content";
 
+const legalLinks = [
+  { label: "Copyright Notice", href: "/copyright-notice" },
+  { label: "Terms & Conditions", href: "/terms-and-conditions" },
+  { label: "Privacy Policy", href: "/privacy-policy" }
+];
+
 export function Footer() {
   return (
     <footer className="section-band bg-card/60">
-      <div className="container grid gap-10 py-12 md:grid-cols-[1.2fr_0.8fr_0.8fr]">
+      <div className="container grid gap-10 py-12 md:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr]">
         <div>
           <Link href="/" className="flex items-center gap-3">
             <Image
@@ -45,11 +51,21 @@ export function Footer() {
             ))}
           </div>
         </div>
+        <div>
+          <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-muted-foreground">Legal</h3>
+          <div className="mt-4 grid gap-3">
+            {legalLinks.map((item) => (
+              <Link key={item.href} href={item.href} className="text-sm text-muted-foreground hover:text-foreground">
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
       <div className="border-t py-5">
-        <div className="container flex flex-col gap-2 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-          <p>{"\u00a9"} {new Date().getFullYear()} Aurex Technologies. All rights reserved.</p>
-          <p>Built for speed, clarity and growth.</p>
+        <div className="container flex flex-col gap-2 text-sm text-muted-foreground">
+          <p>{"\u00a9"} 2026 Aurex Technologies. All Rights Reserved.</p>
+          <p>Unauthorized reproduction or distribution of any content, code, design, or assets is prohibited.</p>
         </div>
       </div>
     </footer>
