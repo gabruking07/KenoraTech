@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import { ContactForm } from "@/components/contact-form";
 import { PageHero } from "@/components/page-hero";
 
@@ -12,7 +12,6 @@ export default function ContactPage() {
   const channels = [
     { icon: Mail, label: "Email", value: "kenoratech.in@gmail.com" },
     { icon: Phone, label: "Phone", value: "+91 7383530982" },
-    { icon: MessageCircle, label: "WhatsApp", value: "Fast replies for project queries" },
     { icon: MapPin, label: "Location", value: "Serving clients worldwide" }
   ];
 

@@ -18,7 +18,6 @@ The root layout for the whole website. It adds global metadata, loads the font, 
 - Header
 - Main page content
 - Footer
-- WhatsApp floating button
 
 app/page.tsx
 Homepage. Currently includes:
@@ -39,10 +38,7 @@ app/pricing/page.tsx
 Pricing page with Starter, Business and Premium plans.
 
 app/contact/page.tsx
-Contact page with email, phone, WhatsApp info and contact form.
-
-app/blog/page.tsx
-Blog page.
+Contact page with email, phone, location info and contact form.
 
 app/faq/page.tsx
 FAQ page.
@@ -90,7 +86,7 @@ components/theme-toggle.tsx
 Sun/moon button for switching theme.
 
 components/page-hero.tsx
-Reusable hero section for inner pages like About, Services, Blog and FAQ.
+Reusable hero section for inner pages like About, Services and FAQ.
 
 components/section-heading.tsx
 Reusable heading block used by sections.
@@ -111,9 +107,6 @@ Portfolio area. Currently shows "Portfolio coming soon" because project cards we
 
 components/sections/pricing-section.tsx
 Pricing cards.
-
-components/sections/blog-section.tsx
-Blog cards.
 
 components/sections/faq-section.tsx
 FAQ accordion/details list.
@@ -150,7 +143,6 @@ Most website data lives here:
 - Navigation items
 - Services
 - Pricing plans
-- Blog posts
 - FAQ questions
 - Values
 - Empty portfolio array

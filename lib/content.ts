@@ -13,7 +13,6 @@ export const navItems = [
   { label: "Services", href: "/services" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Pricing", href: "/pricing" },
-  { label: "Blog", href: "/blog" },
   { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/contact" }
 ];
@@ -118,24 +117,6 @@ export const faqs = [
   {
     question: "Do you build custom web applications?",
     answer: "Absolutely. We design and build dashboards, portals, SaaS tools, booking workflows, admin systems and integrations based on your business needs."
-  }
-];
-
-export const blogPosts = [
-  {
-    title: "How to plan a website that converts before design begins",
-    category: "Strategy",
-    readTime: "5 min read"
-  },
-  {
-    title: "Why Core Web Vitals matter for modern business sites",
-    category: "Performance",
-    readTime: "4 min read"
-  },
-  {
-    title: "Choosing between a website, web app and client portal",
-    category: "Product",
-    readTime: "6 min read"
   }
 ];
 
