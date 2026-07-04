@@ -50,14 +50,6 @@ export const services = [
   }
 ];
 
-export const portfolio: Array<{
-  title: string;
-  category: string;
-  description: string;
-  result: string;
-  tags: string[];
-}> = [];
-
 export const pricing = [
   {
     name: "Starter",
