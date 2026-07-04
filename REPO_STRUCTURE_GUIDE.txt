@@ -232,6 +232,9 @@ Exact dependency versions. Commit this to GitHub.
 .env.example
 Template for required deployment environment variables.
 
+DEPLOYMENT.md
+MongoDB Atlas, Vercel and Render deployment checklist.
+
 
 Files And Folders You Can Ignore
 
