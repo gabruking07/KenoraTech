@@ -23,6 +23,7 @@ export function AdminPortfolioManager() {
   const [projects, setProjects] = useState<PortfolioProject[]>([]);
   const [form, setForm] = useState<ProjectForm>(emptyForm);
   const [status, setStatus] = useState("");
+  const [statusType, setStatusType] = useState<"success" | "error">("success");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -33,6 +34,13 @@ export function AdminPortfolioManager() {
   async function loadProjects() {
     const response = await fetch("/api/portfolio", { cache: "no-store" });
     const body = await response.json().catch(() => null);
+
+    if (!response.ok) {
+      setStatusType("error");
+      setStatus(body?.error || "Projects could not be loaded.");
+      return;
+    }
+
     setProjects(body?.projects || []);
   }
 
@@ -49,6 +57,7 @@ export function AdminPortfolioManager() {
     event.preventDefault();
     setLoading(true);
     setStatus("");
+    setStatusType("success");
 
     const response = await fetch("/api/portfolio", {
       method: "POST",
@@ -67,11 +76,13 @@ export function AdminPortfolioManager() {
     setLoading(false);
 
     if (!response.ok) {
+      setStatusType("error");
       setStatus(body?.error || "Project could not be saved.");
       return;
     }
 
     setForm(emptyForm);
+    setStatusType("success");
     setStatus("Project saved.");
     await loadProjects();
   }
@@ -79,6 +90,7 @@ export function AdminPortfolioManager() {
   async function deleteProject(id: string) {
     setLoading(true);
     setStatus("");
+    setStatusType("success");
 
     const response = await fetch(`/api/portfolio/${id}`, {
       method: "DELETE",
@@ -89,10 +101,12 @@ export function AdminPortfolioManager() {
     setLoading(false);
 
     if (!response.ok) {
+      setStatusType("error");
       setStatus(body?.error || "Project could not be deleted.");
       return;
     }
 
+    setStatusType("success");
     setStatus("Project deleted.");
     await loadProjects();
   }
@@ -200,7 +214,11 @@ export function AdminPortfolioManager() {
               />
             </label>
           </div>
-          {status ? <p className="text-sm font-medium text-primary">{status}</p> : null}
+          {status ? (
+            <p className={statusType === "error" ? "text-sm font-medium text-red-600" : "text-sm font-medium text-primary"}>
+              {status}
+            </p>
+          ) : null}
           <Button type="submit" disabled={loading || !token}>
             <Plus className="h-4 w-4" /> {loading ? "Saving..." : "Add project"}
           </Button>

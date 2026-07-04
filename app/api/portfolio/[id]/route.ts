@@ -1,8 +1,10 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { isAuthorizedAdmin } from "@/lib/admin-auth";
+import { DatabaseConnectionError } from "@/lib/mongodb";
 import { deletePortfolioProject } from "@/lib/portfolio";
 
 export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 export async function DELETE(
   request: NextRequest,
@@ -17,6 +19,10 @@ export async function DELETE(
     await deletePortfolioProject(id);
     return NextResponse.json({ ok: true });
   } catch (error) {
+    if (error instanceof DatabaseConnectionError) {
+      return NextResponse.json({ error: error.message }, { status: 503 });
+    }
+
     return NextResponse.json(
       { error: error instanceof Error ? error.message : "Unable to delete project." },
       { status: 400 }
