@@ -86,7 +86,7 @@ export const pricing = [
 
 export const testimonials = [
   {
-    quote: "Aurex turned our scattered ideas into a polished website that instantly made our brand feel more credible.",
+    quote: "Kenora Tech turned our scattered ideas into a polished website that instantly made our brand feel more credible.",
     name: "Rhea Sharma",
     role: "Founder, Studio Luma"
   },

@@ -13,15 +13,15 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://aurextechnologies.com"),
+  metadataBase: new URL("https://kenoratech.com"),
   title: {
-    default: "Aurex Technologies | Modern Websites & Digital Products",
-    template: "%s | Aurex Technologies"
+    default: "Kenora Tech | Modern Websites & Digital Products",
+    template: "%s | Kenora Tech"
   },
   description:
-    "Aurex Technologies builds modern websites, web applications, e-commerce platforms, UI/UX systems, SEO foundations and maintenance plans for growing businesses.",
+    "Kenora Tech builds modern websites, web applications, e-commerce platforms, UI/UX systems, SEO foundations and maintenance plans for growing businesses.",
   keywords: [
-    "Aurex Technologies",
+    "Kenora Tech",
     "website development",
     "web applications",
     "technology agency",
@@ -29,10 +29,10 @@ export const metadata: Metadata = {
     "SEO optimization"
   ],
   openGraph: {
-    title: "Aurex Technologies",
+    title: "Kenora Tech",
     description: "Transforming ideas into digital products for ambitious businesses.",
-    url: "https://aurextechnologies.com",
-    siteName: "Aurex Technologies",
+    url: "https://kenoratech.com",
+    siteName: "Kenora Tech",
     type: "website"
   },
   robots: {

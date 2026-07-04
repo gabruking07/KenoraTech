@@ -5,7 +5,7 @@ import { ServicesSection } from "@/components/sections/services-section";
 
 export const metadata: Metadata = {
   title: "Services",
-  description: "Explore Aurex Technologies services for websites, web applications, e-commerce, UI/UX, SEO and maintenance."
+  description: "Explore Kenora Tech services for websites, web applications, e-commerce, UI/UX, SEO and maintenance."
 };
 
 export default function ServicesPage() {

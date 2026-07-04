@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://aurextechnologies.com/sitemap.xml
+Sitemap: https://kenoratech.com/sitemap.xml

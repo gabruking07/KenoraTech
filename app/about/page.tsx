@@ -5,14 +5,14 @@ import { values } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "Meet Aurex Technologies, a modern technology agency focused on clean strategy, thoughtful design and reliable engineering."
+  description: "Meet Kenora Tech, a modern technology agency focused on clean strategy, thoughtful design and reliable engineering."
 };
 
 export default function AboutPage() {
   return (
     <>
       <PageHero
-        eyebrow="About Aurex"
+        eyebrow="About Kenora Tech"
         title="A focused product team for founders, local brands and growing companies."
         description="We combine crisp design, pragmatic engineering and growth-aware strategy to help businesses launch digital products that feel premium and work beautifully."
       />
@@ -25,7 +25,7 @@ export default function AboutPage() {
         </div>
         <div className="space-y-5 text-base leading-8 text-muted-foreground">
           <p>
-            Aurex Technologies was built for clients who want a senior digital partner without the slow layers of a traditional agency. Every project begins with a sharp discovery sprint, moves through visual direction and prototyping, then ships with performance, accessibility and conversion in mind.
+            Kenora Tech was built for clients who want a senior digital partner without the slow layers of a traditional agency. Every project begins with a sharp discovery sprint, moves through visual direction and prototyping, then ships with performance, accessibility and conversion in mind.
           </p>
           <p>
             Our process is collaborative but calm. You get clear checkpoints, honest recommendations, reusable components and a site or app that is ready to grow with your business.

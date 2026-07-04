@@ -16,13 +16,13 @@ export function Footer() {
         <div>
           <Link href="/" className="flex items-center gap-3">
             <Image
-              src="/aurex-logo.png"
-              alt="Aurex Technologies"
+              src="/kenora-tech-logo.png"
+              alt="Kenora Tech"
               width={36}
               height={36}
               className="h-9 w-9 rounded-md object-contain"
             />
-            <span className="font-bold">Aurex Technologies</span>
+            <span className="font-bold">Kenora Tech</span>
           </Link>
           <p className="mt-5 max-w-md leading-7 text-muted-foreground">
             Modern websites, web applications and digital solutions for companies that want a sharper online presence.
@@ -64,7 +64,7 @@ export function Footer() {
       </div>
       <div className="border-t py-5">
         <div className="container flex flex-col gap-2 text-sm text-muted-foreground">
-          <p>{"\u00a9"} 2026 Aurex Technologies. All Rights Reserved.</p>
+          <p>{"\u00a9"} 2026 Kenora Tech. All Rights Reserved.</p>
           <p>Unauthorized reproduction or distribution of any content, code, design or assets is prohibited.</p>
         </div>
       </div>

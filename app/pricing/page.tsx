@@ -5,7 +5,7 @@ import { PricingSection } from "@/components/sections/pricing-section";
 
 export const metadata: Metadata = {
   title: "Pricing",
-  description: "Simple website and web application pricing plans from Aurex Technologies, including Starter, Business and Premium packages."
+  description: "Simple website and web application pricing plans from Kenora Tech, including Starter, Business and Premium packages."
 };
 
 export default function PricingPage() {

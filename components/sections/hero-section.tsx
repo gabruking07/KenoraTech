@@ -14,7 +14,7 @@ export function HeroSection() {
           Transforming Ideas Into Digital Products
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-muted-foreground md:text-xl">
-          Aurex Technologies builds modern websites, web applications and digital solutions for businesses.
+          Kenora Tech builds modern websites, web applications and digital solutions for businesses.
         </p>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <Button asChild size="lg">

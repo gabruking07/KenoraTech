@@ -5,12 +5,12 @@ import { PageHero } from "@/components/page-hero";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Book a free consultation with Aurex Technologies for your next website, web application or digital product."
+  description: "Book a free consultation with Kenora Tech for your next website, web application or digital product."
 };
 
 export default function ContactPage() {
   const channels = [
-    { icon: Mail, label: "Email", value: "aurextechnologies.in@gmail.com" },
+    { icon: Mail, label: "Email", value: "kenoratech.in@gmail.com" },
     { icon: Phone, label: "Phone", value: "+91 7383530982" },
     { icon: MessageCircle, label: "WhatsApp", value: "Fast replies for project queries" },
     { icon: MapPin, label: "Location", value: "Serving clients worldwide" }

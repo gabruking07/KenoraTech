@@ -9,7 +9,7 @@ export function TestimonialsSection() {
         <SectionHeading
           eyebrow="Testimonials"
           title="Clients remember the calm process as much as the polished launch."
-          description="Aurex is built for teams who want speed, taste and accountable communication from first call to final handoff."
+          description="Kenora Tech is built for teams who want speed, taste and accountable communication from first call to final handoff."
         />
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {testimonials.map((item) => (

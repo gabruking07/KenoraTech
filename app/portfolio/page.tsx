@@ -5,7 +5,7 @@ import { CtaSection } from "@/components/sections/cta-section";
 
 export const metadata: Metadata = {
   title: "Portfolio",
-  description: "Aurex Technologies portfolio of websites, applications, commerce systems and conversion-focused digital experiences."
+  description: "Kenora Tech portfolio of websites, applications, commerce systems and conversion-focused digital experiences."
 };
 
 export default function PortfolioPage() {

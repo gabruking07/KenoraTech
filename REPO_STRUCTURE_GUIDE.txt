@@ -1,8 +1,8 @@
-Aurex Technologies Repo Structure Guide
+Kenora Tech Repo Structure Guide
 
 Big Picture
 
-This is a Next.js 15, React 19, TypeScript and Tailwind CSS website for Aurex Technologies.
+This is a Next.js 15, React 19, TypeScript and Tailwind CSS website for Kenora Tech.
 
 The app uses the Next.js App Router. Pages live inside the app folder. Most visual blocks live inside components. Shared text and data lives in lib/content.ts.
 
@@ -165,7 +165,7 @@ public/
 
 Static files served directly by the website.
 
-public/aurex-logo.png
+public/kenora-tech-logo.png
 Logo used in header and footer.
 
 public/robots.txt

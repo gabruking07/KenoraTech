@@ -14,7 +14,7 @@ export function CtaSection() {
                 Ready to turn your next idea into a polished digital product?
               </h2>
               <p className="mt-5 max-w-2xl leading-8 text-white/76">
-                Share your goals and Aurex Technologies will help you choose the leanest path to a premium, scalable launch.
+                Share your goals and Kenora Tech will help you choose the leanest path to a premium, scalable launch.
               </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row md:flex-col">

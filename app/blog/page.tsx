@@ -4,7 +4,7 @@ import { PageHero } from "@/components/page-hero";
 
 export const metadata: Metadata = {
   title: "Blog",
-  description: "Aurex Technologies blog with practical notes on websites, performance, SEO and digital product planning."
+  description: "Kenora Tech blog with practical notes on websites, performance, SEO and digital product planning."
 };
 
 export default function BlogPage() {

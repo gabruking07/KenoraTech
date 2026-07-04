@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://aurextechnologies.com/</loc>
+    <loc>https://kenoratech.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://aurextechnologies.com/about</loc>
+    <loc>https://kenoratech.com/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://aurextechnologies.com/services</loc>
+    <loc>https://kenoratech.com/services</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://aurextechnologies.com/portfolio</loc>
+    <loc>https://kenoratech.com/portfolio</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://aurextechnologies.com/pricing</loc>
+    <loc>https://kenoratech.com/pricing</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://aurextechnologies.com/blog</loc>
+    <loc>https://kenoratech.com/blog</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://aurextechnologies.com/faq</loc>
+    <loc>https://kenoratech.com/faq</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://aurextechnologies.com/contact</loc>
+    <loc>https://kenoratech.com/contact</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

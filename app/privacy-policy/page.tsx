@@ -4,7 +4,7 @@ import { PageHero } from "@/components/page-hero";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: "Privacy policy explaining how Aurex Technologies collects, uses and protects information."
+  description: "Privacy policy explaining how Kenora Tech collects, uses and protects information."
 };
 
 const sections = [
@@ -46,8 +46,8 @@ const sections = [
   {
     title: "Your Choices",
     body: [
-      "You may contact Aurex Technologies to request access, updates, corrections or deletion of personal information we hold about you.",
-      "For privacy-related questions, email aurextechnologies.in@gmail.com."
+      "You may contact Kenora Tech to request access, updates, corrections or deletion of personal information we hold about you.",
+      "For privacy-related questions, email kenoratech.in@gmail.com."
     ]
   }
 ];
@@ -58,7 +58,7 @@ export default function PrivacyPolicyPage() {
       <PageHero
         eyebrow="Legal"
         title="Privacy Policy"
-        description="How Aurex Technologies collects, uses, protects and manages information shared with us."
+        description="How Kenora Tech collects, uses, protects and manages information shared with us."
       />
       <LegalPage updatedAt="June 24, 2026" sections={sections} />
     </>

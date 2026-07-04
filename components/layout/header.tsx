@@ -17,16 +17,16 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b bg-background/82 backdrop-blur-xl">
       <div className="container flex h-16 items-center justify-between">
-        <Link href="/" className="flex items-center gap-3" aria-label="Aurex Technologies home">
+        <Link href="/" className="flex items-center gap-3" aria-label="Kenora Tech home">
           <Image
-            src="/aurex-logo.png"
-            alt="Aurex Technologies"
+            src="/kenora-tech-logo.png"
+            alt="Kenora Tech"
             width={36}
             height={36}
             priority
             className="h-9 w-9 rounded-md object-contain"
           />
-          <span className="text-sm font-bold tracking-tight sm:text-base">Aurex Technologies</span>
+          <span className="text-sm font-bold tracking-tight sm:text-base">Kenora Tech</span>
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex" aria-label="Main navigation">
