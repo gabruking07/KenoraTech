@@ -4,7 +4,7 @@ Big Picture
 
 This is a Next.js 15, React 19, TypeScript and Tailwind CSS website for Kenora Tech.
 
-The app uses the Next.js App Router. Pages live inside the app folder. Most visual blocks live inside components. Shared text and data lives in lib/content.ts.
+The app uses the Next.js App Router. Pages live inside the app folder. Most visual blocks live inside components. Shared text lives in lib/content.ts. Portfolio projects and contact submissions are stored in MongoDB Atlas.
 
 
 Main Folders
@@ -32,13 +32,25 @@ app/services/page.tsx
 Services page.
 
 app/portfolio/page.tsx
-Portfolio page. Currently empty/placeholder so you can add projects later.
+Portfolio page. Loads project cards from MongoDB Atlas.
+
+app/admin/page.tsx
+Admin page for adding and deleting portfolio projects.
 
 app/pricing/page.tsx
 Pricing page with Starter, Business and Premium plans.
 
 app/contact/page.tsx
 Contact page with email, phone, location info and contact form.
+
+app/api/portfolio/route.ts
+API route for listing and adding portfolio projects. Adding requires ADMIN_TOKEN.
+
+app/api/portfolio/[id]/route.ts
+API route for deleting portfolio projects. Deleting requires ADMIN_TOKEN.
+
+app/api/contact/route.ts
+API route that stores contact form submissions in MongoDB Atlas.
 
 app/faq/page.tsx
 FAQ page.
@@ -77,7 +89,10 @@ components/whatsapp-button.tsx
 Floating WhatsApp button.
 
 components/contact-form.tsx
-Contact form UI.
+Contact form UI. Submits leads to app/api/contact.
+
+components/admin-portfolio-manager.tsx
+Admin UI for managing portfolio projects.
 
 components/theme-provider.tsx
 Sets up dark/light mode using next-themes.
@@ -103,7 +118,7 @@ components/sections/services-section.tsx
 Services grid.
 
 components/sections/portfolio-section.tsx
-Portfolio area. Currently shows "Portfolio coming soon" because project cards were removed.
+Portfolio area. Reads project cards from MongoDB Atlas and shows a coming-soon state when none exist.
 
 components/sections/pricing-section.tsx
 Pricing cards.
@@ -145,9 +160,20 @@ Most website data lives here:
 - Pricing plans
 - FAQ questions
 - Values
-- Empty portfolio array
 
 If you want to change most text, start here.
+
+lib/mongodb.ts
+Shared MongoDB Atlas connection helper.
+
+lib/portfolio.ts
+Portfolio project validation and database functions.
+
+lib/contact-submissions.ts
+Contact form submission database function.
+
+lib/admin-auth.ts
+ADMIN_TOKEN authorization helper for protected API routes.
 
 lib/utils.ts
 Utility function cn() for merging Tailwind classes safely.
@@ -203,6 +229,9 @@ Auto-generated Next.js TypeScript helper file. Do not edit.
 package-lock.json
 Exact dependency versions. Commit this to GitHub.
 
+.env.example
+Template for required deployment environment variables.
+
 
 Files And Folders You Can Ignore
 
@@ -242,6 +271,9 @@ lib/content.ts
 Change pricing:
 lib/content.ts
 
+Add portfolio projects:
+Visit /admin and enter the ADMIN_TOKEN value from your deployment environment variables.
+
 Change contact details:
 app/contact/page.tsx
 components/whatsapp-button.tsx
@@ -257,10 +289,11 @@ How The Website Loads
 2. User visits a route, like /services.
 3. Next loads app/services/page.tsx.
 4. That page imports reusable components.
-5. Components read data from lib/content.ts.
+5. Components read shared text from lib/content.ts and portfolio data from MongoDB Atlas.
 6. Tailwind styles come from class names and app/globals.css.
 
 The structure is clean:
 - Pages decide layout.
 - Sections display content.
 - lib/content.ts stores most text.
+- MongoDB Atlas stores portfolio projects and contact submissions.

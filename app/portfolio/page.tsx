@@ -8,6 +8,8 @@ export const metadata: Metadata = {
   description: "Kenora Tech portfolio of websites, applications, commerce systems and conversion-focused digital experiences."
 };
 
+export const dynamic = "force-dynamic";
+
 export default function PortfolioPage() {
   return (
     <>
