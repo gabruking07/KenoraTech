@@ -3,10 +3,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { ArrowRight, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { navItems } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
@@ -15,28 +14,34 @@ export function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b bg-background/82 backdrop-blur-xl">
-      <div className="container flex h-16 items-center justify-between">
+    <header
+      className="sticky top-0 z-50 border-b border-white/5 bg-[#030711]/95 text-white backdrop-blur-xl"
+      suppressHydrationWarning
+    >
+      <div className="container flex h-[86px] items-center justify-between">
         <Link href="/" className="flex items-center gap-3" aria-label="Kenora Tech home">
           <Image
             src="/kenora-tech-logo.png"
             alt="Kenora Tech"
-            width={36}
-            height={36}
+            width={46}
+            height={46}
             priority
-            className="h-9 w-9 rounded-md object-contain"
+            className="h-11 w-11 rounded-md object-contain"
           />
-          <span className="text-sm font-bold tracking-tight sm:text-base">Kenora Tech</span>
+          <span className="text-xl font-extrabold tracking-normal">
+            Kenora<span className="text-[#7d3cff]">Tech</span>
+          </span>
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex" aria-label="Main navigation">
+        <nav className="hidden items-center gap-8 lg:flex" aria-label="Main navigation">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className={cn(
-                "rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition hover:bg-muted hover:text-foreground",
-                pathname === item.href && "bg-muted text-foreground"
+                "relative px-1 py-2 text-sm font-medium text-white transition hover:text-[#35b7ff]",
+                pathname === item.href &&
+                  "text-white after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-10 after:-translate-x-1/2 after:rounded-full after:bg-[#20a8ff] after:shadow-[0_0_10px_#20a8ff]"
               )}
             >
               {item.label}
@@ -44,37 +49,45 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-2 md:flex">
-          <ThemeToggle />
-          <Button asChild size="sm">
-            <Link href="/contact">Get Free Consultation</Link>
-          </Button>
+        <div className="hidden items-center gap-2 lg:flex">
+          <Link
+            href="/contact"
+            className="inline-flex h-12 items-center gap-4 rounded-lg bg-gradient-to-r from-[#8c1cff] to-[#19a8ff] px-5 text-sm font-bold text-white shadow-[0_0_30px_rgba(105,51,255,0.28)] transition hover:scale-[1.02]"
+          >
+            Start Your Project
+            <ArrowRight className="h-5 w-5" />
+          </Link>
         </div>
 
-        <div className="flex items-center gap-1 md:hidden">
-          <ThemeToggle />
-          <Button size="icon" variant="ghost" aria-label="Toggle menu" onClick={() => setOpen((value) => !value)}>
+        <div className="flex items-center gap-1 lg:hidden">
+          <Button
+            size="icon"
+            variant="ghost"
+            aria-label="Toggle menu"
+            className="text-white hover:bg-white/10"
+            onClick={() => setOpen((value) => !value)}
+          >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
         </div>
       </div>
 
       {open ? (
-        <div className="border-t bg-background md:hidden">
+        <div className="border-t border-white/10 bg-[#030711] lg:hidden">
           <nav className="container grid gap-1 py-4" aria-label="Mobile navigation">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="rounded-md px-3 py-3 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
+                className="rounded-md px-3 py-3 text-sm font-medium text-white/76 hover:bg-white/10 hover:text-white"
               >
                 {item.label}
               </Link>
             ))}
-            <Button asChild className="mt-2">
+            <Button asChild className="mt-2 bg-gradient-to-r from-[#8c1cff] to-[#19a8ff] text-white">
               <Link href="/contact" onClick={() => setOpen(false)}>
-                Get Free Consultation
+                Start Your Project
               </Link>
             </Button>
           </nav>
