@@ -1,3 +1,4 @@
+import { ObjectId, type Document } from "mongodb";
 import { getMongoDb } from "@/lib/mongodb";
 
 export type ContactSubmissionInput = {
@@ -5,6 +6,11 @@ export type ContactSubmissionInput = {
   email: string;
   project: string;
   message: string;
+};
+
+export type ContactSubmission = ContactSubmissionInput & {
+  id: string;
+  createdAt: string;
 };
 
 function cleanString(value: unknown) {
@@ -29,4 +35,31 @@ export async function createContactSubmission(input: Partial<ContactSubmissionIn
     message,
     createdAt: new Date()
   });
+}
+
+function normalizeSubmission(doc: Document): ContactSubmission {
+  return {
+    id: doc._id.toString(),
+    name: doc.name,
+    email: doc.email,
+    project: doc.project,
+    message: doc.message,
+    createdAt: doc.createdAt?.toISOString?.() || new Date().toISOString()
+  };
+}
+
+export async function listContactSubmissions() {
+  const db = await getMongoDb();
+  const submissions = await db.collection("contactSubmissions").find({}).sort({ createdAt: -1 }).toArray();
+
+  return submissions.map(normalizeSubmission);
+}
+
+export async function deleteContactSubmission(id: string) {
+  if (!ObjectId.isValid(id)) {
+    throw new Error("Invalid message id.");
+  }
+
+  const db = await getMongoDb();
+  await db.collection("contactSubmissions").deleteOne({ _id: new ObjectId(id) });
 }

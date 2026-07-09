@@ -32,13 +32,49 @@ app/services/page.tsx
 Services page.
 
 app/portfolio/page.tsx
-Portfolio page. Loads project cards from MongoDB Atlas.
+Portfolio page route. It renders the premium static showcase from components/portfolio/PortfolioPage.tsx.
 
 app/admin/page.tsx
-Admin page for adding and deleting portfolio projects.
+Admin entry route. Redirects to /admin/dashboard.
+
+app/admin/layout.tsx
+Nested admin layout. Wraps all admin routes in the dashboard shell.
+
+app/admin/dashboard/page.tsx
+Admin dashboard overview with stats, visual charts, recent messages, recent projects and activity feed.
+
+app/admin/messages/page.tsx
+Contact messages management UI with search, status filter, export button, data table, badges and pagination.
+
+app/admin/projects/page.tsx
+Portfolio projects management UI with search, status filter, add project button, project table and pagination.
+
+app/admin/projects/new/page.tsx
+Add new project UI with a three-column project form, media upload panels and project detail controls.
+
+app/admin/services/page.tsx
+Admin placeholder page for managing service content.
+
+app/admin/team/page.tsx
+Admin placeholder page for managing team members.
+
+app/admin/testimonials/page.tsx
+Admin placeholder page for managing testimonials.
+
+app/admin/pricing/page.tsx
+Admin placeholder page for managing pricing plans.
+
+app/admin/process/page.tsx
+Admin placeholder page for managing process steps.
+
+app/admin/settings/page.tsx
+Admin placeholder page for managing website settings.
+
+app/admin/profile/page.tsx
+Admin placeholder page for managing the admin profile.
 
 app/pricing/page.tsx
-Pricing page with Starter, Business and Premium plans.
+Pricing page route. It renders the premium pricing experience from components/pricing/PricingPage.tsx.
 
 app/contact/page.tsx
 Contact page with email, phone, location info and contact form.
@@ -47,10 +83,16 @@ app/api/portfolio/route.ts
 API route for listing and adding portfolio projects. Adding requires ADMIN_TOKEN.
 
 app/api/portfolio/[id]/route.ts
-API route for deleting portfolio projects. Deleting requires ADMIN_TOKEN.
+API route for updating and deleting portfolio projects. Updating and deleting require ADMIN_TOKEN.
 
 app/api/contact/route.ts
-API route that stores contact form submissions in MongoDB Atlas.
+API route that stores contact form submissions in MongoDB Atlas. GET lists messages for authorized admins.
+
+app/api/contact/[id]/route.ts
+API route for deleting contact submissions. Deleting requires ADMIN_TOKEN.
+
+app/api/admin/verify/route.ts
+API route used by the admin login gate to verify ADMIN_TOKEN before showing the dashboard.
 
 app/faq/page.tsx
 FAQ page.
@@ -92,7 +134,7 @@ components/contact-form.tsx
 Contact form UI. Submits leads to app/api/contact.
 
 components/admin-portfolio-manager.tsx
-Admin UI for managing portfolio projects.
+Older MongoDB portfolio manager. The main admin UI now lives in components/admin/.
 
 components/theme-provider.tsx
 Sets up dark/light mode using next-themes.
@@ -118,10 +160,10 @@ components/sections/services-section.tsx
 Services grid.
 
 components/sections/portfolio-section.tsx
-Portfolio area. Reads project cards from MongoDB Atlas and shows a coming-soon state when none exist.
+Older reusable portfolio area. It reads project cards from MongoDB Atlas and shows a coming-soon state when none exist. The main /portfolio page now uses components/portfolio/.
 
 components/sections/pricing-section.tsx
-Pricing cards.
+Older reusable pricing cards section. The main /pricing page now uses the richer components/pricing/ page set instead.
 
 components/sections/faq-section.tsx
 FAQ accordion/details list.
@@ -131,6 +173,121 @@ Final call-to-action section.
 
 components/sections/testimonials-section.tsx
 Still exists, but it is not used on homepage now. You can delete later if you do not want testimonials at all.
+
+
+components/pricing/
+
+Dedicated components for the premium /pricing page.
+
+components/pricing/PricingPage.tsx
+Client-side pricing page shell. Owns the monthly/yearly billing toggle state and renders:
+- PricingHero
+- PricingCards
+- ComparisonTable
+- PricingCTA
+
+components/pricing/PricingHero.tsx
+Split pricing hero with badge, heading, billing toggle and floating pricing illustration. Uses assets/price.png.
+
+components/pricing/PricingToggle.tsx
+Animated monthly/yearly toggle. Yearly communicates 20% savings.
+
+components/pricing/PricingCards.tsx
+Responsive pricing card grid. Desktop uses four columns, tablet uses two columns and mobile uses one column.
+
+components/pricing/PricingCard.tsx
+Individual glassmorphism pricing card with Lucide icon, INR price, features and CTA.
+
+components/pricing/ComparisonTable.tsx
+Rounded glass comparison table for Starter, Growth, Business and Enterprise plans.
+
+components/pricing/PricingCTA.tsx
+Custom-plan call-to-action section with glowing rocket icon and gradient Contact Us button.
+
+components/pricing/pricing-data.ts
+Typed pricing plan and comparison table data. INR plan prices live here.
+
+
+components/admin/
+
+Dedicated components for the premium admin dashboard UI.
+
+components/admin/AdminLayout.tsx
+Full admin shell with dark neon background, fixed sidebar and topbar.
+
+components/admin/AdminAuthGate.tsx
+Client admin access gate. Verifies the entered token against app/api/admin/verify before rendering admin pages.
+
+components/admin/Sidebar.tsx
+Fixed admin navigation with active states and KenoraTech admin branding.
+
+components/admin/Topbar.tsx
+Admin topbar with search, date, notifications and admin profile control.
+
+components/admin/PageHeader.tsx
+Reusable admin page title, description and action area.
+
+components/admin/StatCard.tsx
+Animated dashboard stat card.
+
+components/admin/DataTable.tsx
+Reusable rounded glass table wrapper.
+
+components/admin/SearchBar.tsx
+Reusable admin search input.
+
+components/admin/EmptyState.tsx
+Reusable admin empty-state panel.
+
+components/admin/Loading.tsx
+Reusable admin loading indicator.
+
+components/admin/Modal.tsx
+Reusable modal surface.
+
+components/admin/ConfirmDialog.tsx
+Reusable confirmation notice.
+
+components/admin/AdminPlaceholderPage.tsx
+Reusable working placeholder page for admin sections that are not connected to a backend yet.
+
+components/admin/dashboard/
+Dashboard-specific stat, chart, recent message and activity components.
+
+components/admin/messages/MessagesTable.tsx
+Animated contact messages table.
+
+components/admin/projects/ProjectsTable.tsx
+Animated portfolio projects table.
+
+components/admin/projects/ProjectForm.tsx
+Three-column add-project form UI.
+
+
+components/portfolio/
+
+Dedicated components for the premium /portfolio page.
+
+components/portfolio/PortfolioPage.tsx
+Client-side portfolio page shell. Renders:
+- PortfolioHero
+- ProjectsGrid
+- PortfolioCTA
+
+components/portfolio/PortfolioHero.tsx
+Split portfolio hero with the supplied assets/portfolio.png illustration, floating cubes, particles and glow effects.
+
+components/portfolio/ProjectsGrid.tsx
+Responsive project showcase grid. Desktop uses three columns, tablet uses two columns and mobile uses one column. No filters or tabs are used.
+
+components/portfolio/ProjectCard.tsx
+Individual glassmorphism project card with image, title, description and View Project link.
+
+components/portfolio/PortfolioCTA.tsx
+Final project call-to-action section with glowing rocket icon and gradient button.
+
+components/portfolio/projects.ts
+Typed static project data for the portfolio page.
 
 
 components/ui/
@@ -175,6 +332,26 @@ Contact form submission database function.
 lib/admin-auth.ts
 ADMIN_TOKEN authorization helper for protected API routes.
 
+
+data/admin/
+
+Static dummy data used by the admin dashboard UI.
+
+data/admin/dashboard.ts
+Dashboard stats, visitor chart data, source data and activity items.
+
+data/admin/messages.ts
+Dummy contact message rows and status types.
+
+data/admin/projects.ts
+Dummy portfolio project rows and status types.
+
+data/admin/services.ts
+Dummy admin service labels.
+
+data/admin/team.ts
+Dummy admin team labels.
+
 lib/utils.ts
 Utility function cn() for merging Tailwind classes safely.
 
@@ -185,6 +362,9 @@ Static files served directly by the website.
 
 public/kenora-tech-logo.png
 Logo used in header and footer.
+
+public/portfolio/
+Local placeholder project thumbnails used by the premium /portfolio page.
 
 public/robots.txt
 Search engine crawling instructions.
@@ -236,6 +416,32 @@ DEPLOYMENT.md
 MongoDB Atlas, Vercel and Render deployment checklist.
 
 
+assets/
+
+Image assets imported by Next components.
+
+assets/homepage.png
+Homepage hero artwork.
+
+assets/about.png
+About page artwork.
+
+assets/services.png
+Services page artwork.
+
+assets/process.png
+Process page artwork.
+
+assets/portfolio.png
+Portfolio page hero artwork used by components/portfolio/PortfolioHero.tsx.
+
+assets/price.png
+Pricing page hero artwork used by components/pricing/PricingHero.tsx.
+
+assets/KenoraTech.png
+KenoraTech brand/image asset.
+
+
 Files And Folders You Can Ignore
 
 node_modules/
@@ -265,6 +471,10 @@ components/layout/header.tsx
 Change homepage:
 app/page.tsx
 
+Change portfolio:
+components/portfolio/projects.ts for project cards.
+components/portfolio/PortfolioHero.tsx for the portfolio hero.
+
 Change homepage hero:
 components/sections/hero-section.tsx
 
@@ -272,7 +482,12 @@ Change services:
 lib/content.ts
 
 Change pricing:
-lib/content.ts
+components/pricing/pricing-data.ts for the main /pricing page.
+lib/content.ts for the older reusable pricing section.
+
+Change admin dashboard UI:
+components/admin/
+data/admin/
 
 Add portfolio projects:
 Visit /admin and enter the ADMIN_TOKEN value from your deployment environment variables.

@@ -12,7 +12,7 @@ export const navItems = [
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Portfolio", href: "/portfolio" },
-  { label: "Process", href: "/#process" },
+  { label: "Process", href: "/process" },
   { label: "Pricing", href: "/pricing" },
   { label: "Contact", href: "/contact" }
 ];
