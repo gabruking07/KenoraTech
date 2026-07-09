@@ -3,7 +3,8 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { ArrowRight, Bot, Code2, Gauge, Globe2, ShieldCheck } from "lucide-react";
-import * as THREE from "three";
+
+type ThreeModule = typeof import("three");
 
 const cards = [
   {
@@ -32,7 +33,7 @@ const cards = [
   }
 ];
 
-function makeParticleTexture() {
+function makeParticleTexture(THREE: ThreeModule) {
   const canvas = document.createElement("canvas");
   canvas.width = 64;
   canvas.height = 64;
@@ -67,13 +68,21 @@ export function HomeThreeHero() {
       return;
     }
 
+    let cleanupScene: (() => void) | undefined;
+    let cancelled = false;
+
+    void import("three").then((THREE) => {
+      if (cancelled) {
+        return;
+      }
+
     const renderer = new THREE.WebGLRenderer({
       canvas,
       antialias: true,
       alpha: true,
       powerPreference: "high-performance"
     });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.setSize(hero.clientWidth, hero.clientHeight);
 
     const scene = new THREE.Scene();
@@ -85,10 +94,10 @@ export function HomeThreeHero() {
 
     const pointer = new THREE.Vector2(0, 0);
     const clock = new THREE.Clock();
-    const particleTexture = makeParticleTexture();
+    const particleTexture = makeParticleTexture(THREE);
     let animationId = 0;
 
-    const fieldCount = 760;
+    const fieldCount = 420;
     const fieldPositions = new Float32Array(fieldCount * 3);
     const fieldColors = new Float32Array(fieldCount * 3);
     const blue = new THREE.Color("#16b7ff");
@@ -152,7 +161,7 @@ export function HomeThreeHero() {
     );
     sphereGroup.add(wire);
 
-    const sphereParticleCount = 420;
+    const sphereParticleCount = 220;
     const spherePositions = new Float32Array(sphereParticleCount * 3);
     for (let index = 0; index < sphereParticleCount; index += 1) {
       const i = index * 3;
@@ -281,7 +290,7 @@ export function HomeThreeHero() {
     applyResponsiveScene();
     animationId = requestAnimationFrame(animate);
 
-    return () => {
+    cleanupScene = () => {
       cancelAnimationFrame(animationId);
       window.removeEventListener("resize", resize);
       hero.removeEventListener("pointermove", onPointerMove);
@@ -313,6 +322,12 @@ export function HomeThreeHero() {
         particleTexture.dispose();
       }
       renderer.dispose();
+    };
+    });
+
+    return () => {
+      cancelled = true;
+      cleanupScene?.();
     };
   }, []);
 

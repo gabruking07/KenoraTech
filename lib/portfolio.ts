@@ -99,6 +99,31 @@ export async function createPortfolioProject(input: Partial<PortfolioProjectInpu
   return normalizeProject(created);
 }
 
+export async function updatePortfolioProject(id: string, input: Partial<PortfolioProjectInput>) {
+  if (!ObjectId.isValid(id)) {
+    throw new Error("Invalid project id.");
+  }
+
+  const collection = await getPortfolioCollection();
+  const project = sanitizeProjectInput(input);
+  await collection.updateOne(
+    { _id: new ObjectId(id) },
+    {
+      $set: {
+        ...project,
+        updatedAt: new Date()
+      }
+    }
+  );
+
+  const updated = await collection.findOne({ _id: new ObjectId(id) });
+  if (!updated) {
+    throw new Error("Project could not be found.");
+  }
+
+  return normalizeProject(updated);
+}
+
 export async function deletePortfolioProject(id: string) {
   if (!ObjectId.isValid(id)) {
     throw new Error("Invalid project id.");
