@@ -22,7 +22,11 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
   try {
     const db = await getMongoDb();
     const items = await db.collection(`admin_${type}`).find({}).sort({ createdAt: -1 }).toArray();
-    return NextResponse.json({ items: items.map((item) => ({ id: item._id.toString(), title: item.title, description: item.description })) });
+    return NextResponse.json({
+      items: items
+        .filter((item) => typeof item.title === "string" && item.title.trim() && typeof item.description === "string" && item.description.trim())
+        .map((item) => ({ id: item._id.toString(), title: item.title, description: item.description }))
+    });
   } catch (error) {
     return NextResponse.json({ error: error instanceof DatabaseConnectionError ? error.message : "Unable to load content." }, { status: 500 });
   }
