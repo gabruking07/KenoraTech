@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { AdminPlaceholderPage } from "@/components/admin/AdminPlaceholderPage";
+import { AdminContentManager } from "@/components/admin/AdminContentManager";
 
 export const metadata: Metadata = {
   title: "Testimonials",
@@ -7,11 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function TestimonialsPage() {
-  return (
-    <AdminPlaceholderPage
-      title="Testimonials"
-      description="Manage client testimonials, review snippets and featured quotes."
-      items={[]}
-    />
-  );
+  return <AdminContentManager type="testimonials" title="Testimonials" description="Add and manage client reviews." titleLabel="Client name" descriptionLabel="Testimonial" />;
 }

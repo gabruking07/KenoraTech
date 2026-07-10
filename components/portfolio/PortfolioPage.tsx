@@ -2,6 +2,7 @@
 
 import { PortfolioCTA } from "@/components/portfolio/PortfolioCTA";
 import { PortfolioHero } from "@/components/portfolio/PortfolioHero";
+import { ProjectsGrid } from "@/components/portfolio/ProjectsGrid";
 
 const starPositions = [
   "left-[5%] top-[9%]",
@@ -23,6 +24,7 @@ export function PortfolioPage() {
       ))}
       <div className="relative">
         <PortfolioHero />
+        <ProjectsGrid />
         <PortfolioCTA />
       </div>
     </div>

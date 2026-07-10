@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { AdminPlaceholderPage } from "@/components/admin/AdminPlaceholderPage";
+import { AdminContentManager } from "@/components/admin/AdminContentManager";
 
 export const metadata: Metadata = {
   title: "Admin Profile",
@@ -7,11 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function ProfilePage() {
-  return (
-    <AdminPlaceholderPage
-      title="Admin Profile"
-      description="Manage account information and dashboard preferences."
-      items={[]}
-    />
-  );
+  return <AdminContentManager type="profile" title="Admin Profile" description="Save administrator profile details and preferences." titleLabel="Profile field" descriptionLabel="Value" />;
 }

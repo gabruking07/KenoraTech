@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { AdminPlaceholderPage } from "@/components/admin/AdminPlaceholderPage";
+import { AdminContentManager } from "@/components/admin/AdminContentManager";
 
 export const metadata: Metadata = {
   title: "Team Members",
@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function TeamPage() {
-  return <AdminPlaceholderPage title="Team Members" description="Manage team profiles, roles and ordering." items={[]} />;
+  return <AdminContentManager type="team" title="Team Members" description="Add and manage team member profiles." titleLabel="Name and role" descriptionLabel="Profile details" />;
 }
