@@ -185,7 +185,14 @@ function ServicesIllustration() {
 export function ServicesPageContent() {
   const [managedServices, setManagedServices] = useState<Array<{ title: string; description: string }>>([]);
   const displayedServices = managedServices.length
-    ? managedServices.map((service, index) => ({ ...service, icon: services[index % services.length].icon }))
+    ? [...managedServices]
+        .filter((service) => service.title.trim() && service.description.trim())
+        .sort((first, second) => {
+          const firstIndex = services.findIndex((service) => service.title === first.title);
+          const secondIndex = services.findIndex((service) => service.title === second.title);
+          return (firstIndex < 0 ? 99 : firstIndex) - (secondIndex < 0 ? 99 : secondIndex);
+        })
+        .map((service) => ({ ...service, icon: services.find((defaultService) => defaultService.title === service.title)?.icon || Code2 }))
     : services;
 
   useEffect(() => {
