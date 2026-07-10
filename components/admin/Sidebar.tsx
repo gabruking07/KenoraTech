@@ -10,7 +10,6 @@ import {
   Home,
   LogOut,
   MessageSquareText,
-  Settings,
   ShieldCheck,
   Sparkles,
   Star,
@@ -26,7 +25,6 @@ const menuItems = [
   { label: "Team Members", href: "/admin/team", icon: Users },
   { label: "Testimonials", href: "/admin/testimonials", icon: Star },
   { label: "Pricing Plans", href: "/admin/pricing", icon: BadgeDollarSign },
-  { label: "Website Settings", href: "/admin/settings", icon: Settings },
   { label: "Admin Profile", href: "/admin/profile", icon: CircleUserRound }
 ];
 

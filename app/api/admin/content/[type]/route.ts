@@ -13,10 +13,11 @@ export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ type: string }> }) {
-  if (!isAuthorizedAdmin(request)) return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
-
   const { type } = await params;
   if (!validType(type)) return NextResponse.json({ error: "Unknown content type." }, { status: 404 });
+  if (!["services", "testimonials"].includes(type) && !isAuthorizedAdmin(request)) {
+    return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
+  }
 
   try {
     const db = await getMongoDb();

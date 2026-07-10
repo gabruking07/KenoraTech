@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { AdminPlaceholderPage } from "@/components/admin/AdminPlaceholderPage";
+import { PricingManager } from "@/components/admin/PricingManager";
 
 export const metadata: Metadata = {
   title: "Pricing Plans",
@@ -7,11 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function PricingAdminPage() {
-  return (
-    <AdminPlaceholderPage
-      title="Pricing Plans"
-      description="Manage plan names, pricing, feature lists and highlighted packages."
-      items={[]}
-    />
-  );
+  return <PricingManager />;
 }

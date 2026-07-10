@@ -6,6 +6,7 @@ export interface PricingPlan {
   icon: LucideIcon;
   originalPrice?: number;
   offerPrice?: number;
+  unit?: "/project" | "/month";
   priceLabel?: string;
   description: string;
   subtext: string;
@@ -28,6 +29,7 @@ export const pricingPlans: PricingPlan[] = [
     icon: Rocket,
     originalPrice: 6999,
     offerPrice: 3999,
+    unit: "/project",
     description: "Perfect for startups",
     subtext: "Everything you need to launch your business online.",
     features: ["Up to 5 Pages", "Responsive Design", "Basic SEO", "Contact Form", "1 Month Support"],
@@ -38,6 +40,7 @@ export const pricingPlans: PricingPlan[] = [
     icon: TrendingUp,
     originalPrice: 11999,
     offerPrice: 6999,
+    unit: "/project",
     description: "Best for growing businesses",
     subtext: "Advanced features to grow your brand and reach.",
     features: ["Up to 15 Pages", "Responsive Design", "Advanced SEO", "CMS Integration", "Speed Optimization", "3 Months Support"],
@@ -49,6 +52,7 @@ export const pricingPlans: PricingPlan[] = [
     icon: BriefcaseBusiness,
     originalPrice: 18999,
     offerPrice: 10999,
+    unit: "/project",
     description: "For established businesses",
     subtext: "Powerful solutions for business scalability.",
     features: [

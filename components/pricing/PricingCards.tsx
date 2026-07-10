@@ -1,10 +1,23 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { PricingCard } from "@/components/pricing/PricingCard";
 import { pricingPlans } from "@/components/pricing/pricing-data";
 
 export function PricingCards() {
+  const [plans, setPlans] = useState(pricingPlans);
+
+  useEffect(() => {
+    void fetch("/api/pricing", { cache: "no-store" })
+      .then((response) => response.json())
+      .then((body) => {
+        if (!Array.isArray(body?.plans)) return;
+        setPlans(pricingPlans.map((plan) => ({ ...plan, ...body.plans.find((item: { name: string }) => item.name === plan.name) })));
+      })
+      .catch(() => undefined);
+  }, []);
+
   return (
     <section className="container relative z-10 pb-5">
       <motion.div
@@ -20,7 +33,7 @@ export function PricingCards() {
         <p className="mt-3 text-sm font-medium text-white/62">Offer ends soon.</p>
       </motion.div>
       <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-        {pricingPlans.map((plan, index) => (
+        {plans.map((plan, index) => (
           <PricingCard key={plan.name} plan={plan} index={index} />
         ))}
       </div>
