@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { AdminPlaceholderPage } from "@/components/admin/AdminPlaceholderPage";
+import { AdminContentManager } from "@/components/admin/AdminContentManager";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function ServicesPage() {
-  return <AdminPlaceholderPage title="Services" description="Manage service cards and website service content." items={[]} />;
+  return <AdminContentManager type="services" title="Services" description="Add and manage your service offerings." titleLabel="Service name" descriptionLabel="Service description" />;
 }

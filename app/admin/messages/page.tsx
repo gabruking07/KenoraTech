@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Download } from "lucide-react";
 import { PageHeader } from "@/components/admin/PageHeader";
 import { SearchBar } from "@/components/admin/SearchBar";
 import { MessagesTable } from "@/components/admin/messages/MessagesTable";
@@ -15,12 +14,6 @@ export default function MessagesPage() {
       <PageHeader
         title="Contact Messages"
         description="Review, reply and manage inbound project inquiries."
-        action={
-          <button className="inline-flex h-11 items-center gap-2 rounded-2xl bg-gradient-to-r from-[#8B5CF6] to-[#3B82F6] px-4 text-sm font-bold text-white shadow-[0_0_28px_rgba(59,130,246,0.24)]">
-            <Download className="h-4 w-4" />
-            Export CSV
-          </button>
-        }
       />
       <div className="grid gap-4 lg:grid-cols-[1fr_190px]">
         <SearchBar placeholder="Search messages..." />

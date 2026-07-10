@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import type { PortfolioProject } from "@/components/portfolio/projects";
+import type { PortfolioProject } from "@/lib/portfolio";
 
 interface ProjectCardProps {
   project: PortfolioProject;
@@ -26,7 +26,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       </div>
       <div className="relative overflow-hidden rounded-2xl border border-white/[0.06] bg-[#050816]">
         <Image
-          src={project.image}
+          src={project.imageUrl || "/portfolio/portfolio-website.svg"}
           alt={`${project.title} project preview`}
           width={960}
           height={560}
@@ -37,7 +37,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         <h3 className="text-xl font-bold tracking-normal text-white">{project.title}</h3>
         <p className="mt-2 min-h-[72px] text-sm leading-6 text-white/72">{project.description}</p>
         <Link
-          href={project.link}
+          href={project.liveUrl || "/contact"}
           className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[#c062ff] transition hover:text-[#37b8ff] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1aa8ff]"
           aria-label={`View ${project.title} project`}
         >

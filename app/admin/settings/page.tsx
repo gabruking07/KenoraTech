@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { AdminPlaceholderPage } from "@/components/admin/AdminPlaceholderPage";
+import { AdminContentManager } from "@/components/admin/AdminContentManager";
 
 export const metadata: Metadata = {
   title: "Website Settings",
@@ -7,11 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function SettingsPage() {
-  return (
-    <AdminPlaceholderPage
-      title="Website Settings"
-      description="Manage global website settings, SEO defaults and contact details."
-      items={[]}
-    />
-  );
+  return <AdminContentManager type="settings" title="Website Settings" description="Save website contact details, SEO notes and global settings." titleLabel="Setting name" descriptionLabel="Setting value" />;
 }
