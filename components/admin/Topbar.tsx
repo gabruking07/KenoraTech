@@ -1,13 +1,22 @@
 "use client";
 
-import { Bell, CalendarDays, ChevronDown, Menu, Search } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
+import { Bell, CalendarDays, ChevronDown, Menu, Search, X } from "lucide-react";
+
+const mobileItems = [
+  ["Dashboard", "/admin/dashboard"], ["Contact Messages", "/admin/messages"], ["Portfolio Projects", "/admin/projects"],
+  ["Services", "/admin/services"], ["Team Members", "/admin/team"], ["Testimonials", "/admin/testimonials"],
+  ["Pricing Plans", "/admin/pricing"], ["Admin Profile", "/admin/profile"]
+];
 
 export function Topbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
     <header className="sticky top-0 z-30 border-b border-white/[0.08] bg-[#050816]/82 backdrop-blur-2xl">
       <div className="flex h-[76px] items-center justify-between gap-4 px-4 md:px-8">
         <div className="flex items-center gap-3 lg:hidden">
-          <button className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/[0.08] bg-[#0D1323] text-white">
+          <button onClick={() => setMenuOpen(true)} aria-label="Open admin navigation" className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/[0.08] bg-[#0D1323] text-white">
             <Menu className="h-5 w-5" />
           </button>
           <p className="text-lg font-black text-white">KenoraTech</p>
@@ -43,6 +52,7 @@ export function Topbar() {
           </button>
         </div>
       </div>
+      {menuOpen ? <div className="fixed inset-0 z-50 lg:hidden"><button onClick={() => setMenuOpen(false)} aria-label="Close navigation" className="absolute inset-0 bg-black/60" /><nav className="relative h-full w-[min(20rem,86vw)] overflow-y-auto border-r border-white/[0.08] bg-[#070B16] p-5 shadow-2xl"><div className="mb-8 flex items-center justify-between"><p className="text-xl font-black">KenoraTech</p><button onClick={() => setMenuOpen(false)} aria-label="Close navigation" className="rounded-xl p-2 text-white/65"><X className="h-5 w-5" /></button></div><div className="grid gap-1">{mobileItems.map(([label, href]) => <Link key={href} href={href} onClick={() => setMenuOpen(false)} className="rounded-xl px-4 py-3 text-sm font-semibold text-white/72 transition hover:bg-white/[0.06] hover:text-white">{label}</Link>)}</div></nav></div> : null}
     </header>
   );
 }
