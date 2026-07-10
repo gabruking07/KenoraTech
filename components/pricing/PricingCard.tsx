@@ -7,7 +7,6 @@ import type { PricingPlan } from "@/components/pricing/pricing-data";
 
 interface PricingCardProps {
   plan: PricingPlan;
-  billingCycle: "monthly" | "yearly";
   index: number;
 }
 
@@ -19,9 +18,8 @@ function formatInr(value: number) {
   }).format(value);
 }
 
-export function PricingCard({ plan, billingCycle, index }: PricingCardProps) {
+export function PricingCard({ plan, index }: PricingCardProps) {
   const Icon = plan.icon;
-  const price = billingCycle === "yearly" ? plan.yearlyMonthlyPrice : plan.monthlyPrice;
 
   return (
     <motion.article
@@ -57,11 +55,22 @@ export function PricingCard({ plan, billingCycle, index }: PricingCardProps) {
         </span>
       ) : null}
       <div className="relative z-10 mt-8">
-        {price ? (
-          <div className="flex items-end gap-2">
-            <span className="text-[40px] font-black leading-none tracking-normal text-white">{formatInr(price)}</span>
-            <span className="pb-1 text-sm text-white/72">/month</span>
-          </div>
+        {plan.offerPrice && plan.originalPrice ? (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45, delay: 0.18 + index * 0.08 }}
+          >
+            <span className="text-lg font-semibold text-white/45 line-through decoration-[#7f1d1d] decoration-2">{formatInr(plan.originalPrice)}</span>
+            <span className="ml-3 inline-flex rounded-full bg-gradient-to-r from-[#8c1cff] to-[#1aa8ff] px-2.5 py-1 text-[10px] font-black text-white shadow-[0_0_16px_rgba(74,116,255,0.36)]">
+              40% OFF
+            </span>
+            <div className="mt-3 flex items-end gap-2">
+              <span className="text-[40px] font-black leading-none tracking-normal text-white">{formatInr(plan.offerPrice)}</span>
+              <span className="pb-1 text-sm text-white/72">/project</span>
+            </div>
+          </motion.div>
         ) : (
           <span className="bg-gradient-to-r from-[#8c1cff] to-[#1aa8ff] bg-clip-text text-[40px] font-black leading-none text-transparent">
             {plan.priceLabel}
@@ -81,7 +90,7 @@ export function PricingCard({ plan, billingCycle, index }: PricingCardProps) {
         <Link
           href="/contact"
           className={[
-            "inline-flex h-12 w-full items-center justify-center rounded-lg border text-sm font-bold transition hover:scale-[1.02] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1aa8ff]",
+            "inline-flex h-12 w-full items-center justify-center rounded-lg border text-sm font-bold transition hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(48,151,255,0.42)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1aa8ff]",
             plan.popular
               ? "border-transparent bg-gradient-to-r from-[#8c1cff] to-[#0da8ff] text-white shadow-[0_0_30px_rgba(13,168,255,0.26)]"
               : "border-white/16 bg-transparent text-[#d061ff] hover:border-[#1aa8ff]/60 hover:text-white"
