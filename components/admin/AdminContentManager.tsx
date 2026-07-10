@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Plus, Sparkles, Trash2 } from "lucide-react";
 import { EmptyState } from "@/components/admin/EmptyState";
 
@@ -11,6 +11,7 @@ export function AdminContentManager({ type, title, description, titleLabel = "Ti
   const [itemTitle, setItemTitle] = useState("");
   const [itemDescription, setItemDescription] = useState("");
   const [status, setStatus] = useState("");
+  const seededDefaults = useRef(false);
 
   const load = useCallback(async () => {
     const token = window.localStorage.getItem("kenora-admin-token") || "";
@@ -18,9 +19,19 @@ export function AdminContentManager({ type, title, description, titleLabel = "Ti
     const body = await response.json().catch(() => null);
     setItems(response.ok ? body.items || [] : []);
     if (!response.ok) setStatus(body?.error || "Unable to load saved items.");
+    return response.ok ? body.items || [] : [];
   }, [type]);
 
-  useEffect(() => { void load(); }, [load]);
+  useEffect(() => {
+    void (async () => {
+      const loadedItems = await load();
+      if (type !== "services" || !defaults.length || loadedItems.length || seededDefaults.current) return;
+      seededDefaults.current = true;
+      const token = window.localStorage.getItem("kenora-admin-token") || "";
+      await Promise.all(defaults.map((item) => fetch(`/api/admin/content/${type}`, { method: "POST", headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" }, body: JSON.stringify(item) })));
+      await load();
+    })();
+  }, [defaults, load, type]);
 
   const save = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -42,17 +53,9 @@ export function AdminContentManager({ type, title, description, titleLabel = "Ti
     else setStatus("Unable to delete.");
   };
 
-  const addDefaults = async () => {
-    const token = window.localStorage.getItem("kenora-admin-token") || "";
-    await Promise.all(defaults.map((item) => fetch(`/api/admin/content/${type}`, { method: "POST", headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" }, body: JSON.stringify(item) })));
-    setStatus("Default services added.");
-    await load();
-  };
-
   return (
     <div className="grid gap-7">
       <div><h1 className="text-3xl font-black text-white">{title}</h1><p className="mt-2 text-sm text-white/55">{description}</p></div>
-      {type === "services" && items.length === 0 && defaults.length ? <button onClick={() => void addDefaults()} className="w-fit rounded-xl border border-[#8B5CF6]/45 bg-[#8B5CF6]/12 px-4 py-2 text-sm font-bold text-[#d2b7ff]">Add the six default services</button> : null}
       <form onSubmit={save} className="grid gap-4 rounded-3xl border border-white/[0.08] bg-[#0D1323]/78 p-6">
         <input value={itemTitle} onChange={(event) => setItemTitle(event.target.value)} placeholder={titleLabel} className="h-11 rounded-xl border border-white/[0.08] bg-[#050816] px-4 text-sm text-white outline-none focus:border-[#3B82F6]/70" />
         <textarea value={itemDescription} onChange={(event) => setItemDescription(event.target.value)} placeholder={descriptionLabel} rows={4} className="rounded-xl border border-white/[0.08] bg-[#050816] px-4 py-3 text-sm text-white outline-none focus:border-[#3B82F6]/70" />

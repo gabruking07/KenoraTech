@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Bell, CalendarDays, ChevronDown, Menu, Search, X } from "lucide-react";
+import { BadgeDollarSign, CircleUserRound, FolderKanban, Home, Menu, MessageSquareText, Search, Sparkles, Star, Users, X } from "lucide-react";
 
 const mobileItems = [
-  ["Dashboard", "/admin/dashboard"], ["Contact Messages", "/admin/messages"], ["Portfolio Projects", "/admin/projects"],
-  ["Services", "/admin/services"], ["Team Members", "/admin/team"], ["Testimonials", "/admin/testimonials"],
-  ["Pricing Plans", "/admin/pricing"], ["Admin Profile", "/admin/profile"]
+  { label: "Dashboard", href: "/admin/dashboard", icon: Home }, { label: "Contact Messages", href: "/admin/messages", icon: MessageSquareText }, { label: "Portfolio Projects", href: "/admin/projects", icon: FolderKanban },
+  { label: "Services", href: "/admin/services", icon: Sparkles }, { label: "Team Members", href: "/admin/team", icon: Users }, { label: "Testimonials", href: "/admin/testimonials", icon: Star },
+  { label: "Pricing Plans", href: "/admin/pricing", icon: BadgeDollarSign }, { label: "Admin Profile", href: "/admin/profile", icon: CircleUserRound }
 ];
 
 export function Topbar() {
@@ -31,28 +31,8 @@ export function Topbar() {
           />
         </label>
 
-        <div className="ml-auto flex items-center gap-3">
-          <button className="hidden h-11 items-center gap-2 rounded-2xl border border-white/[0.08] bg-[#0D1323]/78 px-4 text-sm font-semibold text-white/68 md:flex">
-            <CalendarDays className="h-4 w-4 text-[#8EC5FF]" />
-            Jul 09, 2026
-          </button>
-          <button className="relative flex h-11 w-11 items-center justify-center rounded-2xl border border-white/[0.08] bg-[#0D1323]/78 text-white">
-            <Bell className="h-5 w-5" />
-            <span className="absolute right-3 top-3 h-2 w-2 rounded-full bg-[#8B5CF6] shadow-[0_0_10px_#8B5CF6]" />
-          </button>
-          <button className="flex h-11 items-center gap-3 rounded-2xl border border-white/[0.08] bg-[#0D1323]/78 px-3 text-left text-white">
-            <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-[#8B5CF6] to-[#3B82F6] text-xs font-black">
-              A
-            </span>
-            <span className="hidden sm:block">
-              <span className="block text-sm font-bold leading-4">Admin</span>
-              <span className="block text-xs text-white/42">Super Admin</span>
-            </span>
-            <ChevronDown className="hidden h-4 w-4 text-white/42 sm:block" />
-          </button>
-        </div>
       </div>
-      {menuOpen ? <div className="fixed inset-0 z-50 lg:hidden"><button onClick={() => setMenuOpen(false)} aria-label="Close navigation" className="absolute inset-0 bg-black/60" /><nav className="relative h-full w-[min(20rem,86vw)] overflow-y-auto border-r border-white/[0.08] bg-[#070B16] p-5 shadow-2xl"><div className="mb-8 flex items-center justify-between"><p className="text-xl font-black">KenoraTech</p><button onClick={() => setMenuOpen(false)} aria-label="Close navigation" className="rounded-xl p-2 text-white/65"><X className="h-5 w-5" /></button></div><div className="grid gap-1">{mobileItems.map(([label, href]) => <Link key={href} href={href} onClick={() => setMenuOpen(false)} className="rounded-xl px-4 py-3 text-sm font-semibold text-white/72 transition hover:bg-white/[0.06] hover:text-white">{label}</Link>)}</div></nav></div> : null}
+      {menuOpen ? <div className="absolute left-0 top-0 z-50 h-[100dvh] w-screen lg:hidden"><button onClick={() => setMenuOpen(false)} aria-label="Close navigation" className="absolute inset-0 bg-black/65" /><nav className="relative flex h-[100dvh] w-[min(18rem,86vw)] flex-col overflow-y-auto border-r border-white/[0.08] bg-[#070B16] p-5 shadow-2xl"><div className="mb-8 flex items-center justify-between border-b border-white/[0.08] pb-5"><div><p className="text-xl font-black">Kenora<span className="text-[#8B5CF6]">Tech</span></p><p className="mt-1 text-xs font-medium uppercase text-white/42">Admin Panel</p></div><button onClick={() => setMenuOpen(false)} aria-label="Close navigation" className="rounded-xl p-2 text-white/65"><X className="h-5 w-5" /></button></div><div className="grid gap-1">{mobileItems.map((item) => { const Icon = item.icon; return <Link key={item.href} href={item.href} onClick={() => setMenuOpen(false)} className="flex h-11 items-center gap-3 rounded-xl px-3 text-sm font-semibold text-white/70 transition hover:bg-white/[0.06] hover:text-white"><Icon className="h-5 w-5 text-[#8EC5FF]" />{item.label}</Link>; })}</div></nav></div> : null}
     </header>
   );
 }
