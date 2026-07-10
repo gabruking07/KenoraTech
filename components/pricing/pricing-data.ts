@@ -4,8 +4,8 @@ import { BriefcaseBusiness, Crown, Rocket, TrendingUp } from "lucide-react";
 export interface PricingPlan {
   name: string;
   icon: LucideIcon;
-  monthlyPrice: number | null;
-  yearlyMonthlyPrice: number | null;
+  originalPrice?: number;
+  offerPrice?: number;
   priceLabel?: string;
   description: string;
   subtext: string;
@@ -26,8 +26,8 @@ export const pricingPlans: PricingPlan[] = [
   {
     name: "Starter",
     icon: Rocket,
-    monthlyPrice: 24999,
-    yearlyMonthlyPrice: 19999,
+    originalPrice: 6999,
+    offerPrice: 3999,
     description: "Perfect for startups",
     subtext: "Everything you need to launch your business online.",
     features: ["Up to 5 Pages", "Responsive Design", "Basic SEO", "Contact Form", "1 Month Support"],
@@ -36,8 +36,8 @@ export const pricingPlans: PricingPlan[] = [
   {
     name: "Growth",
     icon: TrendingUp,
-    monthlyPrice: 64999,
-    yearlyMonthlyPrice: 51999,
+    originalPrice: 11999,
+    offerPrice: 6999,
     description: "Best for growing businesses",
     subtext: "Advanced features to grow your brand and reach.",
     features: ["Up to 15 Pages", "Responsive Design", "Advanced SEO", "CMS Integration", "Speed Optimization", "3 Months Support"],
@@ -47,8 +47,8 @@ export const pricingPlans: PricingPlan[] = [
   {
     name: "Business",
     icon: BriefcaseBusiness,
-    monthlyPrice: 124999,
-    yearlyMonthlyPrice: 99999,
+    originalPrice: 18999,
+    offerPrice: 10999,
     description: "For established businesses",
     subtext: "Powerful solutions for business scalability.",
     features: [
@@ -65,9 +65,7 @@ export const pricingPlans: PricingPlan[] = [
   {
     name: "Enterprise",
     icon: Crown,
-    monthlyPrice: null,
-    yearlyMonthlyPrice: null,
-    priceLabel: "Custom",
+    priceLabel: "Custom Quote",
     description: "For large scale solutions",
     subtext: "Tailored solutions for your unique business needs.",
     features: [

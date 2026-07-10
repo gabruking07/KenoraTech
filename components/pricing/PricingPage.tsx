@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { ComparisonTable } from "@/components/pricing/ComparisonTable";
 import { PricingCards } from "@/components/pricing/PricingCards";
 import { PricingCTA } from "@/components/pricing/PricingCTA";
@@ -17,8 +16,6 @@ const starPositions = [
 ];
 
 export function PricingPage() {
-  const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">("monthly");
-
   return (
     <div className="relative overflow-hidden bg-[#050816] text-white">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_12%,rgba(139,28,255,0.13),transparent_24rem),radial-gradient(circle_at_78%_10%,rgba(0,168,255,0.16),transparent_26rem),linear-gradient(180deg,#050816_0%,#02050f_58%,#050816_100%)]" />
@@ -27,8 +24,8 @@ export function PricingPage() {
         <span key={position} className={`pointer-events-none absolute ${position} h-1 w-1 rounded-full bg-[#45bdff] shadow-[0_0_14px_#45bdff]`} />
       ))}
       <div className="relative">
-        <PricingHero billingCycle={billingCycle} onBillingChange={setBillingCycle} />
-        <PricingCards billingCycle={billingCycle} />
+        <PricingHero />
+        <PricingCards />
         <ComparisonTable />
         <PricingCTA />
       </div>

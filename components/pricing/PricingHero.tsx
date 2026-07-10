@@ -3,12 +3,6 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import pricingHero from "@/assets/price.png";
-import { PricingToggle } from "@/components/pricing/PricingToggle";
-
-interface PricingHeroProps {
-  billingCycle: "monthly" | "yearly";
-  onBillingChange: (cycle: "monthly" | "yearly") => void;
-}
 
 const heroParticles = [
   "left-[6%] top-[20%] h-1 w-1",
@@ -27,7 +21,7 @@ const cubes = [
   "right-[24%] bottom-[18%]"
 ];
 
-export function PricingHero({ billingCycle, onBillingChange }: PricingHeroProps) {
+export function PricingHero() {
   return (
     <section className="container relative grid min-h-[530px] items-center gap-12 pb-12 pt-14 lg:grid-cols-[0.96fr_1.04fr] lg:pb-8 lg:pt-16">
       <motion.div
@@ -50,9 +44,6 @@ export function PricingHero({ billingCycle, onBillingChange }: PricingHeroProps)
         <p className="mx-auto mt-6 max-w-[560px] text-base leading-8 text-white/72 lg:mx-0">
           Choose the perfect plan for your business. Upgrade, downgrade, or customize anytime to fit your requirements.
         </p>
-        <div className="mt-8">
-          <PricingToggle billingCycle={billingCycle} onChange={onBillingChange} />
-        </div>
       </motion.div>
 
       <motion.div
