@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import {
   ArrowRight,
@@ -182,6 +183,18 @@ function ServicesIllustration() {
 }
 
 export function ServicesPageContent() {
+  const [managedServices, setManagedServices] = useState<Array<{ title: string; description: string }>>([]);
+  const displayedServices = managedServices.length
+    ? managedServices.map((service, index) => ({ ...service, icon: services[index % services.length].icon }))
+    : services;
+
+  useEffect(() => {
+    void fetch("/api/admin/content/services", { cache: "no-store" })
+      .then((response) => response.json())
+      .then((body) => setManagedServices(Array.isArray(body?.items) ? body.items : []))
+      .catch(() => setManagedServices([]));
+  }, []);
+
   return (
     <div className="overflow-hidden bg-[radial-gradient(circle_at_72%_16%,rgba(59,130,246,0.13),transparent_28rem),radial-gradient(circle_at_22%_15%,rgba(139,92,246,0.12),transparent_24rem),linear-gradient(180deg,#050816,#030613_55%,#050816)] text-white">
       <motion.section
@@ -248,7 +261,7 @@ export function ServicesPageContent() {
           transition={{ staggerChildren: 0.08 }}
           className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3"
         >
-          {services.map((service, index) => (
+          {displayedServices.map((service, index) => (
             <ServiceCard key={service.title} service={service} index={index} />
           ))}
         </motion.div>

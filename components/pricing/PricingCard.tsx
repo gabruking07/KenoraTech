@@ -68,7 +68,7 @@ export function PricingCard({ plan, index }: PricingCardProps) {
             </span>
             <div className="mt-3 flex items-end gap-2">
               <span className="text-[40px] font-black leading-none tracking-normal text-white">{formatInr(plan.offerPrice)}</span>
-              <span className="pb-1 text-sm text-white/72">/project</span>
+              <span className="pb-1 text-sm text-white/72">{plan.unit || "/project"}</span>
             </div>
           </motion.div>
         ) : (
