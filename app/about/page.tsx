@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Diamond, Eye, Target } from "lucide-react";
 import { CtaSection } from "@/components/sections/cta-section";
-import { TestimonialsSection } from "@/components/sections/testimonials-section";
+import { TeamSection } from "@/components/sections/team-section";
 import { values } from "@/lib/content";
 import aboutImage from "@/assets/about.png";
 
@@ -150,7 +150,7 @@ export default function AboutPage() {
           ))}
         </div>
       </section>
-      <TestimonialsSection />
+      <TeamSection />
       <CtaSection />
     </>
   );
