@@ -9,7 +9,10 @@ import {
   CheckCircle2,
   Code2,
   Headphones,
+  LayoutDashboard,
+  Palette,
   Rocket,
+  ShoppingBag,
   Smartphone,
   Star,
   Users,
@@ -34,6 +37,8 @@ const services = [
     description: "We design intuitive, engaging and user-centered interfaces that leave a lasting impression."
   }
 ];
+
+const serviceIcons = { code: Code2, mobile: Smartphone, design: Wand2, dashboard: LayoutDashboard, commerce: ShoppingBag, palette: Palette, sparkles: Wand2 };
 
 const whyChoose = [
   { icon: Star, title: "Client-Centric\nApproach" },
@@ -165,7 +170,7 @@ function ServicesIllustration() {
 }
 
 export function ServicesPageContent() {
-  const [managedServices, setManagedServices] = useState<Array<{ title: string; description: string }>>([]);
+  const [managedServices, setManagedServices] = useState<Array<{ title: string; description: string; icon?: string }>>([]);
   const displayedServices = managedServices.length
     ? [...managedServices]
         .filter((service) => service.title.trim() && service.description.trim())
@@ -174,7 +179,7 @@ export function ServicesPageContent() {
           const secondIndex = services.findIndex((service) => service.title === second.title);
           return (firstIndex < 0 ? 99 : firstIndex) - (secondIndex < 0 ? 99 : secondIndex);
         })
-        .map((service) => ({ ...service, icon: services.find((defaultService) => defaultService.title === service.title)?.icon || Code2 }))
+        .map((service) => ({ ...service, icon: (service.icon ? serviceIcons[service.icon as keyof typeof serviceIcons] : undefined) || services.find((defaultService) => defaultService.title === service.title)?.icon || Code2 }))
     : services;
 
   useEffect(() => {

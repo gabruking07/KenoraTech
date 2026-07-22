@@ -39,7 +39,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
           item.description.trim() &&
           (type !== "services" || !retiredServiceTitles.has(item.title))
         )
-        .map((item) => ({ id: item._id.toString(), title: item.title, description: item.description, imageId: typeof item.imageId === "string" ? item.imageId : undefined }));
+        .map((item) => ({ id: item._id.toString(), title: item.title, description: item.description, imageId: typeof item.imageId === "string" ? item.imageId : undefined, icon: typeof item.icon === "string" ? item.icon : undefined }));
     return NextResponse.json({ items: responseItems }, { headers: isPublicType ? { "Cache-Control": "no-store, max-age=0" } : undefined });
   } catch (error) {
     return NextResponse.json({ error: error instanceof DatabaseConnectionError ? error.message : "Unable to load content." }, { status: 500 });
@@ -57,11 +57,12 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     const title = typeof body.title === "string" ? body.title.trim() : "";
     const description = typeof body.description === "string" ? body.description.trim() : "";
     const imageId = typeof body.imageId === "string" && ObjectId.isValid(body.imageId) ? body.imageId : undefined;
+    const icon = type === "services" && typeof body.icon === "string" ? body.icon.trim().slice(0, 40) : undefined;
     if (!title || !description) return NextResponse.json({ error: "Both fields are required." }, { status: 400 });
 
     const db = await getMongoDb();
-    const result = await db.collection(`admin_${type}`).insertOne({ title, description, imageId, createdAt: new Date() });
-    return NextResponse.json({ item: { id: result.insertedId.toString(), title, description, imageId } }, { status: 201 });
+    const result = await db.collection(`admin_${type}`).insertOne({ title, description, imageId, icon, createdAt: new Date() });
+    return NextResponse.json({ item: { id: result.insertedId.toString(), title, description, imageId, icon } }, { status: 201 });
   } catch (error) {
     return NextResponse.json({ error: error instanceof DatabaseConnectionError ? error.message : "Unable to save content." }, { status: 500 });
   }
