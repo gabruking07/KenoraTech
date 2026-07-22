@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Code2, Smartphone, Wand2 } from "lucide-react";
+import { Code2, LayoutDashboard, Palette, ShoppingBag, Smartphone, Wand2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { SectionHeading } from "@/components/section-heading";
 
@@ -10,15 +10,16 @@ const fallbackServices = [
   { icon: Smartphone, title: "Mobile Development", description: "Custom mobile applications for iOS and Android that deliver seamless experiences and real results." },
   { icon: Wand2, title: "UI/UX Design", description: "We design intuitive, engaging and user-centered interfaces that leave a lasting impression." }
 ];
+const serviceIcons = { code: Code2, mobile: Smartphone, design: Wand2, dashboard: LayoutDashboard, commerce: ShoppingBag, palette: Palette, sparkles: Wand2 };
 
 type ServicesSectionProps = {
   compact?: boolean;
 };
 
 export function ServicesSection({ compact = false }: ServicesSectionProps) {
-  const [managedServices, setManagedServices] = useState<Array<{ title: string; description: string }>>([]);
+  const [managedServices, setManagedServices] = useState<Array<{ title: string; description: string; icon?: string }>>([]);
   const services = managedServices.length
-    ? managedServices.map((service) => ({ ...service, icon: fallbackServices.find((fallback) => fallback.title === service.title)?.icon || Code2 }))
+    ? managedServices.map((service) => ({ ...service, icon: (service.icon ? serviceIcons[service.icon as keyof typeof serviceIcons] : undefined) || fallbackServices.find((fallback) => fallback.title === service.title)?.icon || Code2 }))
     : fallbackServices;
 
   useEffect(() => {
