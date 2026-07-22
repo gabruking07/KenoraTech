@@ -25,7 +25,7 @@ export function AdminContentManager({ type, title, description, titleLabel = "Ti
   useEffect(() => {
     void (async () => {
       const loadedItems = await load();
-      if (type !== "services" || !defaults.length || loadedItems.length || seededDefaults.current) return;
+      if (!defaults.length || loadedItems.length || seededDefaults.current) return;
       seededDefaults.current = true;
       const token = window.localStorage.getItem("kenora-admin-token") || "";
       await Promise.all(defaults.map((item) => fetch(`/api/admin/content/${type}`, { method: "POST", headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" }, body: JSON.stringify(item) })));

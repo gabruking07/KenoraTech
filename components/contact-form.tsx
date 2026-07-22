@@ -69,7 +69,7 @@ export function ContactForm() {
             <option>Web Application</option>
             <option>E-commerce Development</option>
             <option>UI/UX Design</option>
-            <option>SEO or Maintenance</option>
+            <option>Website Maintenance</option>
           </select>
         </label>
         <label className="grid gap-2 text-sm font-medium sm:col-span-2">

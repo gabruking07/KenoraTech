@@ -32,7 +32,7 @@ export const pricingPlans: PricingPlan[] = [
     unit: "/project",
     description: "Perfect for startups",
     subtext: "Everything you need to launch your business online.",
-    features: ["Up to 5 Pages", "Responsive Design", "Basic SEO", "Contact Form", "1 Month Support"],
+    features: ["Up to 5 Pages", "Responsive Design", "Contact Form", "1 Month Support"],
     cta: "Get Started"
   },
   {
@@ -43,7 +43,7 @@ export const pricingPlans: PricingPlan[] = [
     unit: "/project",
     description: "Best for growing businesses",
     subtext: "Advanced features to grow your brand and reach.",
-    features: ["Up to 15 Pages", "Responsive Design", "Advanced SEO", "CMS Integration", "Speed Optimization", "3 Months Support"],
+    features: ["Up to 15 Pages", "Responsive Design", "CMS Integration", "Speed Optimization", "3 Months Support"],
     cta: "Get Started",
     popular: true
   },
@@ -58,7 +58,6 @@ export const pricingPlans: PricingPlan[] = [
     features: [
       "Up to 30 Pages",
       "Responsive Design",
-      "Advanced SEO",
       "CMS Integration",
       "Speed Optimization",
       "Analytics Integration",
@@ -75,7 +74,6 @@ export const pricingPlans: PricingPlan[] = [
     features: [
       "Unlimited Pages",
       "Custom Features",
-      "Advanced SEO",
       "CMS Integration",
       "Speed Optimization",
       "Analytics",
@@ -106,13 +104,6 @@ export const comparisonRows: ComparisonRow[] = [
     growth: true,
     business: true,
     enterprise: true
-  },
-  {
-    feature: "SEO",
-    starter: "Basic",
-    growth: "Advanced",
-    business: "Advanced",
-    enterprise: "Advanced"
   },
   {
     feature: "Speed Optimization",

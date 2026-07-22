@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function SettingsPage() {
-  return <AdminContentManager type="settings" title="Website Settings" description="Save website contact details, SEO notes and global settings." titleLabel="Setting name" descriptionLabel="Setting value" />;
+  return <AdminContentManager type="settings" title="Website Settings" description="Save website contact details and global settings." titleLabel="Setting name" descriptionLabel="Setting value" />;
 }

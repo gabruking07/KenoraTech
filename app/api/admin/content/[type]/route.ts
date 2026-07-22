@@ -4,6 +4,7 @@ import { isAuthorizedAdmin } from "@/lib/admin-auth";
 import { DatabaseConnectionError, getMongoDb } from "@/lib/mongodb";
 
 const allowedTypes = new Set(["services", "team", "testimonials", "settings", "profile"]);
+const retiredServiceTitles = new Set(["Cloud & DevOps", "Digital Marketing", "Cybersecurity", "SEO Optimization"]);
 
 function validType(type: string) {
   return allowedTypes.has(type);
@@ -21,10 +22,21 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 
   try {
     const db = await getMongoDb();
+    // Clean up services that are no longer offered when an administrator opens
+    // the service manager. This keeps the website and the database in sync.
+    if (type === "services" && isAuthorizedAdmin(request)) {
+      await db.collection("admin_services").deleteMany({ title: { $in: [...retiredServiceTitles] } });
+    }
     const items = await db.collection(`admin_${type}`).find({}).sort({ createdAt: -1 }).toArray();
     return NextResponse.json({
       items: items
-        .filter((item) => typeof item.title === "string" && item.title.trim() && typeof item.description === "string" && item.description.trim())
+        .filter((item) =>
+          typeof item.title === "string" &&
+          item.title.trim() &&
+          typeof item.description === "string" &&
+          item.description.trim() &&
+          (type !== "services" || !retiredServiceTitles.has(item.title))
+        )
         .map((item) => ({ id: item._id.toString(), title: item.title, description: item.description }))
     });
   } catch (error) {

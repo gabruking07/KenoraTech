@@ -17,14 +17,13 @@ export const metadata: Metadata = {
     template: "%s | Kenora Tech"
   },
   description:
-    "Kenora Tech builds modern websites, web applications, e-commerce platforms, UI/UX systems, SEO foundations and maintenance plans for growing businesses.",
+    "Kenora Tech builds modern websites, web applications, e-commerce platforms, UI/UX systems and maintenance plans for growing businesses.",
   keywords: [
     "Kenora Tech",
     "website development",
     "web applications",
     "technology agency",
-    "UI UX design",
-    "SEO optimization"
+    "UI UX design"
   ],
   openGraph: {
     title: "Kenora Tech",

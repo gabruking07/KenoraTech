@@ -3,7 +3,6 @@ import {
   LayoutDashboard,
   LifeBuoy,
   Palette,
-  Search,
   ShoppingBag
 } from "lucide-react";
 
@@ -21,7 +20,7 @@ export const services = [
   {
     icon: Code2,
     title: "Website Development",
-    description: "Fast, refined marketing sites built with clean architecture, strong SEO foundations and easy future scaling."
+    description: "Fast, refined marketing sites built with clean architecture and easy future scaling."
   },
   {
     icon: LayoutDashboard,
@@ -39,11 +38,6 @@ export const services = [
     description: "Premium interfaces, responsive systems and product flows that make complex experiences feel simple."
   },
   {
-    icon: Search,
-    title: "SEO Optimization",
-    description: "Technical SEO, metadata, content structure and Core Web Vitals improvements built into the launch plan."
-  },
-  {
     icon: LifeBuoy,
     title: "Website Maintenance",
     description: "Ongoing updates, performance monitoring, security hardening and content support after launch."
@@ -55,14 +49,14 @@ export const pricing = [
     name: "Starter",
     price: "₹1,999",
     description: "A clean launch package for founders, creators and service brands.",
-    features: ["One-page responsive website", "Basic SEO setup", "Contact form", "Speed optimization", "7 days support"],
+    features: ["One-page responsive website", "Contact form", "Speed optimization", "7 days support"],
     cta: "Start lean"
   },
   {
     name: "Business",
     price: "₹4,999",
     description: "A multi-page presence with stronger conversion and credibility systems.",
-    features: ["Up to 6 custom pages", "CMS-ready structure", "Advanced SEO metadata", "Analytics setup", "30 days support"],
+    features: ["Up to 6 custom pages", "CMS-ready structure", "Analytics setup", "30 days support"],
     cta: "Grow smarter",
     featured: true
   },
@@ -104,7 +98,7 @@ export const faqs = [
   },
   {
     question: "Can you maintain the site after launch?",
-    answer: "Yes. Maintenance can include content updates, backups, performance checks, security updates, SEO improvements and feature iterations."
+    answer: "Yes. Maintenance can include content updates, backups, performance checks, security updates and feature iterations."
   },
   {
     question: "Do you build custom web applications?",
@@ -123,6 +117,6 @@ export const values = [
   },
   {
     title: "Measured execution",
-    description: "Performance, SEO, accessibility and conversion goals are part of the build, not an afterthought."
+    description: "Performance, accessibility and conversion goals are part of the build, not an afterthought."
   }
 ];

@@ -47,7 +47,7 @@ export function Footer() {
         <div>
           <h3 className="text-base font-medium text-white">Services</h3>
           <div className="mt-4 grid gap-2">
-            {["Web Development", "Mobile Development", "UI/UX Design", "Cloud & DevOps", "Digital Marketing", "Cybersecurity"].map((item) => (
+            {["Web Development", "Mobile Development", "UI/UX Design"].map((item) => (
               <span key={item} className="text-sm text-white/70">
                 {item}
               </span>

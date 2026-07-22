@@ -191,7 +191,7 @@ export function AdminPortfolioManager() {
               className="h-11 rounded-md border bg-background px-3 text-sm outline-none transition focus:ring-2 focus:ring-ring"
               value={form.tags}
               onChange={(event) => updateField("tags", event.target.value)}
-              placeholder="Next.js, SEO, Dashboard"
+              placeholder="Next.js, E-commerce, Dashboard"
             />
           </label>
           <div className="grid gap-4 sm:grid-cols-2">
