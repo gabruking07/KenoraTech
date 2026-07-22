@@ -18,7 +18,7 @@ const sections = [
   {
     title: "Services",
     body: [
-      "Kenora Tech provides website development, web applications, e-commerce development, UI/UX design, SEO optimization and maintenance services.",
+      "Kenora Tech provides website development, web applications, e-commerce development, UI/UX design and maintenance services.",
       "Project scope, timelines, deliverables, pricing, revisions and support terms are confirmed separately in written proposals, invoices or agreements."
     ]
   },

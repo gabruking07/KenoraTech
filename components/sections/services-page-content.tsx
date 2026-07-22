@@ -6,13 +6,10 @@ import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import {
   ArrowRight,
-  BarChart3,
   CheckCircle2,
-  Cloud,
   Code2,
   Headphones,
   Rocket,
-  ShieldCheck,
   Smartphone,
   Star,
   Users,
@@ -35,21 +32,6 @@ const services = [
     icon: Wand2,
     title: "UI/UX Design",
     description: "We design intuitive, engaging and user-centered interfaces that leave a lasting impression."
-  },
-  {
-    icon: Cloud,
-    title: "Cloud & DevOps",
-    description: "We help you scale, deploy and manage applications in the cloud with reliability and security."
-  },
-  {
-    icon: BarChart3,
-    title: "Digital Marketing",
-    description: "Data-driven marketing strategies to increase visibility, generate leads and grow your online presence."
-  },
-  {
-    icon: ShieldCheck,
-    title: "Cybersecurity",
-    description: "We protect your digital assets with advanced security solutions and proactive risk management."
   }
 ];
 
