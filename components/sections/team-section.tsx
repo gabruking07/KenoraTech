@@ -11,7 +11,7 @@ export function TeamSection() {
   const [members, setMembers] = useState<TeamMember[]>([]);
 
   useEffect(() => {
-    void fetch("/api/admin/content/team")
+    void fetch("/api/admin/content/team", { cache: "no-store" })
       .then((response) => response.json())
       .then((body) => setMembers(Array.isArray(body?.items) ? body.items : []))
       .catch(() => setMembers([]));

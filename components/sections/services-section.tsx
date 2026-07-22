@@ -22,7 +22,7 @@ export function ServicesSection({ compact = false }: ServicesSectionProps) {
     : fallbackServices;
 
   useEffect(() => {
-    void fetch("/api/admin/content/services")
+    void fetch("/api/admin/content/services", { cache: "no-store" })
       .then((response) => response.json())
       .then((body) => setManagedServices(Array.isArray(body?.items) ? body.items : []))
       .catch(() => setManagedServices([]));
