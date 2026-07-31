@@ -45,7 +45,7 @@ export default function CopyrightNoticePage() {
         title="Copyright Notice"
         description="Important ownership and usage terms for Kenora Tech content, code, designs and digital assets."
       />
-      <LegalPage updatedAt="June 24, 2026" sections={sections} />
+      <LegalPage title="Copyright Notice" description="Information about KenoraTech intellectual property, permitted use and copyright enquiries." updatedAt="June 24, 2026" sections={sections} />
     </>
   );
 }
