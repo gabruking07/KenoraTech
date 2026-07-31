@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { BadgeDollarSign, CircleUserRound, FolderKanban, Home, Menu, MessageSquareText, Search, Sparkles, Star, Users, X } from "lucide-react";
+import { BadgeDollarSign, CircleUserRound, FolderKanban, Home, Menu, MessageSquareText, Sparkles, Star, Users, X } from "lucide-react";
 
 const mobileItems = [
   { label: "Dashboard", href: "/admin/dashboard", icon: Home }, { label: "Contact Messages", href: "/admin/messages", icon: MessageSquareText }, { label: "Portfolio Projects", href: "/admin/projects", icon: FolderKanban },
@@ -21,16 +21,6 @@ export function Topbar() {
           </button>
           <p className="text-lg font-black text-white">KenoraTech</p>
         </div>
-
-        <label className="relative hidden w-full max-w-xl md:block">
-          <span className="sr-only">Search admin content</span>
-          <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-white/38" />
-          <input
-            placeholder="Search messages, projects, settings..."
-            className="h-11 w-full rounded-2xl border border-white/[0.08] bg-[#0D1323]/78 pl-11 pr-4 text-sm text-white outline-none placeholder:text-white/36 focus:border-[#3B82F6]/70"
-          />
-        </label>
-
       </div>
       {menuOpen ? <div className="absolute left-0 top-0 z-50 h-[100dvh] w-screen lg:hidden"><button onClick={() => setMenuOpen(false)} aria-label="Close navigation" className="absolute inset-0 bg-black/65" /><nav className="relative flex h-[100dvh] w-[min(18rem,86vw)] flex-col overflow-y-auto border-r border-white/[0.08] bg-[#070B16] p-5 shadow-2xl"><div className="mb-8 flex items-center justify-between border-b border-white/[0.08] pb-5"><div><p className="text-xl font-black">Kenora<span className="text-[#8B5CF6]">Tech</span></p><p className="mt-1 text-xs font-medium uppercase text-white/42">Admin Panel</p></div><button onClick={() => setMenuOpen(false)} aria-label="Close navigation" className="rounded-xl p-2 text-white/65"><X className="h-5 w-5" /></button></div><div className="grid gap-1">{mobileItems.map((item) => { const Icon = item.icon; return <Link key={item.href} href={item.href} onClick={() => setMenuOpen(false)} className="flex h-11 items-center gap-3 rounded-xl px-3 text-sm font-semibold text-white/70 transition hover:bg-white/[0.06] hover:text-white"><Icon className="h-5 w-5 text-[#8EC5FF]" />{item.label}</Link>; })}</div></nav></div> : null}
     </header>

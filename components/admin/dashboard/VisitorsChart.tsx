@@ -1,12 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { sourceSeries, visitorSeries } from "@/data/admin/dashboard";
+import type { Application } from "@/lib/applications";
 
-export function VisitorsChart() {
-  const points = visitorSeries.map((item, index) => {
+export function VisitorsChart({ applications }: { applications: Application[] }) {
+  const days = Array.from({ length: 7 }, (_, index) => { const date = new Date(); date.setDate(date.getDate() - (6 - index)); const key = date.toISOString().slice(0, 10); return { day: date.toLocaleDateString("en", { weekday: "short" }), value: applications.filter(application => application.createdAt.slice(0, 10) === key).length }; });
+  const max = Math.max(1, ...days.map(item => item.value));
+  const points = days.map((item, index) => {
     const x = 48 + index * 82;
-    const y = 250 - (item.value / 2600) * 190;
+    const y = 250 - (item.value / max) * 190;
     return `${x},${y}`;
   });
 
@@ -20,10 +22,10 @@ export function VisitorsChart() {
       >
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-lg font-bold text-white">Visitors Overview</h2>
-            <p className="mt-1 text-sm text-white/48">Monthly traffic growth</p>
+            <h2 className="text-lg font-bold text-white">Application Overview</h2>
+            <p className="mt-1 text-sm text-white/48">Applications received in the last 7 days</p>
           </div>
-          <span className="rounded-full bg-[#3B82F6]/12 px-3 py-1 text-xs font-bold text-[#8EC5FF]">+18.2%</span>
+          <span className="rounded-full bg-[#3B82F6]/12 px-3 py-1 text-xs font-bold text-[#8EC5FF]">{applications.length} total</span>
         </div>
         <svg className="mt-6 h-[280px] w-full" viewBox="0 0 600 280" role="img" aria-label="Visitors line chart">
           <defs>
@@ -51,14 +53,14 @@ export function VisitorsChart() {
             strokeLinejoin="round"
           />
           <polygon points={`48,250 ${points.join(" ")} 540,250`} fill="url(#visitorFill)" />
-          {visitorSeries.map((item, index) => {
+          {days.map((item, index) => {
             const x = 48 + index * 82;
-            const y = 250 - (item.value / 2600) * 190;
+            const y = 250 - (item.value / max) * 190;
             return (
-              <g key={item.month}>
+              <g key={item.day}>
                 <circle cx={x} cy={y} r="5" fill="#050816" stroke="#8EC5FF" strokeWidth="3" />
                 <text x={x} y="272" fill="rgba(255,255,255,.48)" fontSize="12" textAnchor="middle">
-                  {item.month}
+                  {item.day}
                 </text>
               </g>
             );
@@ -72,21 +74,21 @@ export function VisitorsChart() {
         transition={{ duration: 0.5, delay: 0.08, ease: "easeOut" }}
         className="rounded-[24px] border border-white/[0.08] bg-[#0D1323]/82 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_18px_70px_rgba(0,0,0,0.22)] backdrop-blur-2xl"
       >
-        <h2 className="text-lg font-bold text-white">Traffic Source</h2>
-        <p className="mt-1 text-sm text-white/48">Lead attribution</p>
-        <div className="mx-auto mt-8 grid h-44 w-44 place-items-center rounded-full bg-[conic-gradient(from_180deg,#8B5CF6_0_42%,#3B82F6_42%_70%,#22C55E_70%_88%,#F59E0B_88%_100%)] shadow-[0_0_42px_rgba(139,92,246,0.22)]">
+        <h2 className="text-lg font-bold text-white">Application Status</h2>
+        <p className="mt-1 text-sm text-white/48">Current hiring pipeline</p>
+        <div className="mx-auto mt-8 grid h-44 w-44 place-items-center rounded-full bg-[conic-gradient(from_180deg,#8B5CF6_0_40%,#3B82F6_40%_70%,#22C55E_70%_100%)] shadow-[0_0_42px_rgba(139,92,246,0.22)]">
           <div className="grid h-28 w-28 place-items-center rounded-full bg-[#0D1323] text-center">
-            <span className="text-2xl font-black">2.5k</span>
+            <span className="text-2xl font-black">{applications.length}</span>
           </div>
         </div>
         <div className="mt-8 grid gap-3">
-          {sourceSeries.map((source) => (
-            <div key={source.label} className="flex items-center justify-between text-sm">
+          {[["New", applications.filter(item => item.status === "New").length, "bg-[#8B5CF6]"], ["Shortlisted", applications.filter(item => item.status === "Shortlisted").length, "bg-[#3B82F6]"], ["Interview", applications.filter(item => item.status === "Interview").length, "bg-[#22C55E]"]].map(([label, value, color]) => (
+            <div key={label} className="flex items-center justify-between text-sm">
               <span className="flex items-center gap-2 text-white/66">
-                <span className={`h-2.5 w-2.5 rounded-full ${source.color}`} />
-                {source.label}
+                <span className={`h-2.5 w-2.5 rounded-full ${color}`} />
+                {label}
               </span>
-              <span className="font-bold text-white">{source.value}</span>
+              <span className="font-bold text-white">{value}</span>
             </div>
           ))}
         </div>
