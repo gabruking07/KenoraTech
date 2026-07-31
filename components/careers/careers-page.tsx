@@ -44,9 +44,16 @@ export function CareersPage() {
 
   useEffect(() => { void (async () => { const response = await fetch("/api/jobs", { cache: "no-store" }); const body = await response.json().catch(() => null); if (response.ok && Array.isArray(body?.jobs)) setJobs(body.jobs); })(); }, []);
 
-  function submitApplication(event: FormEvent<HTMLFormElement>) {
+  async function submitApplication(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setSubmitted(true);
+    const fields = event.currentTarget.querySelectorAll<HTMLInputElement>("input");
+    const message = event.currentTarget.querySelector("textarea")?.value || "";
+    const resume = fields[5]?.files?.[0];
+    const payload = new FormData();
+    payload.append("jobTitle", selectedJob?.title || ""); payload.append("fullName", fields[0]?.value || ""); payload.append("email", fields[1]?.value || ""); payload.append("phone", fields[2]?.value || ""); payload.append("location", fields[3]?.value || ""); payload.append("profileUrl", fields[4]?.value || ""); payload.append("coverLetter", message);
+    if (resume) payload.append("resume", resume);
+    const response = await fetch("/api/applications", { method: "POST", body: payload });
+    if (response.ok) setSubmitted(true);
   }
 
   return <div className="overflow-hidden bg-[#030711] text-white">

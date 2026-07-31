@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import {
   BadgeDollarSign,
   CircleUserRound,
+  ClipboardList,
   BriefcaseBusiness,
   FolderKanban,
   Home,
@@ -23,6 +24,7 @@ const menuItems = [
   { label: "Contact Messages", href: "/admin/messages", icon: MessageSquareText },
   { label: "Portfolio Projects", href: "/admin/projects", icon: FolderKanban },
   { label: "Careers & Jobs", href: "/admin/jobs", icon: BriefcaseBusiness },
+  { label: "Applications", href: "/admin/applications", icon: ClipboardList },
   { label: "Services", href: "/admin/services", icon: Sparkles },
   { label: "Team Members", href: "/admin/team", icon: Users },
   { label: "Testimonials", href: "/admin/testimonials", icon: Star },
