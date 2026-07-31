@@ -53,7 +53,12 @@ export function CareersPage() {
     payload.append("jobTitle", selectedJob?.title || ""); payload.append("fullName", fields[0]?.value || ""); payload.append("email", fields[1]?.value || ""); payload.append("phone", fields[2]?.value || ""); payload.append("location", fields[3]?.value || ""); payload.append("profileUrl", fields[4]?.value || ""); payload.append("coverLetter", message);
     if (resume) payload.append("resume", resume);
     const response = await fetch("/api/applications", { method: "POST", body: payload });
-    if (response.ok) setSubmitted(true);
+    if (response.ok) {
+      setSubmitted(true);
+    } else {
+      const body = await response.json().catch(() => null);
+      window.alert(body?.error || "Your application could not be submitted. Please try again.");
+    }
   }
 
   return <div className="overflow-hidden bg-[#030711] text-white">
