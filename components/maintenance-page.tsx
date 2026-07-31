@@ -22,7 +22,7 @@ const completionItems: { icon: LucideIcon; title: string; sub: string }[] = [
 
 export function MaintenancePage() {
   const [email, setEmail] = useState(""); const [notified, setNotified] = useState(false);
-  function notify(event: FormEvent) { event.preventDefault(); if (/^\S+@\S+\.\S+$/.test(email)) setNotified(true); }
+  async function notify(event: FormEvent) { event.preventDefault(); const response = await fetch("/api/maintenance-notifications", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email }) }); if (response.ok) setNotified(true); else { const body = await response.json().catch(() => null); window.alert(body?.error || "Unable to save your email."); } }
   return <div className="relative isolate overflow-hidden bg-[#030711] text-white">
     <Image src={background} alt="" priority fill className="-z-30 object-cover object-center" />
     <div className="absolute inset-0 -z-20 bg-[linear-gradient(180deg,rgba(3,7,17,.18),#030711_82%)]" />
