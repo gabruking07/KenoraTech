@@ -24,14 +24,14 @@ export function Footer() {
             We build intelligent digital experiences that help businesses go online, scale and succeed in the digital world.
           </p>
           <div className="mt-5 flex gap-3">
-            {[Linkedin, Github, Instagram, X].map((Icon, index) => (
+            {/* {[Linkedin, Github, Instagram, X].map((Icon, index) => (
               <span
                 key={index}
                 className="flex h-9 w-9 items-center justify-center rounded-full bg-[#0b1225] text-white/78"
               >
                 <Icon className="h-4 w-4" />
               </span>
-            ))}
+            ))} */}
           </div>
         </div>
         <div>
@@ -73,7 +73,7 @@ export function Footer() {
             </span>
             <span className="flex items-center gap-4">
               <Phone className="h-5 w-5 text-white" />
-              +91 98765 43210
+              +91 73835 30982
             </span>
             <span className="flex items-center gap-4">
               <MapPin className="h-5 w-5 text-white" />

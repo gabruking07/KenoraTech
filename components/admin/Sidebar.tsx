@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import {
   BadgeDollarSign,
   CircleUserRound,
+  BriefcaseBusiness,
   FolderKanban,
   Home,
   LogOut,
@@ -21,6 +22,7 @@ const menuItems = [
   { label: "Dashboard", href: "/admin/dashboard", icon: Home },
   { label: "Contact Messages", href: "/admin/messages", icon: MessageSquareText },
   { label: "Portfolio Projects", href: "/admin/projects", icon: FolderKanban },
+  { label: "Careers & Jobs", href: "/admin/jobs", icon: BriefcaseBusiness },
   { label: "Services", href: "/admin/services", icon: Sparkles },
   { label: "Team Members", href: "/admin/team", icon: Users },
   { label: "Testimonials", href: "/admin/testimonials", icon: Star },
