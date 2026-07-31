@@ -6,6 +6,8 @@ import { RecentMessages } from "@/components/admin/dashboard/RecentMessages";
 import { ActivityFeed } from "@/components/admin/dashboard/ActivityFeed";
 import { listContactSubmissions } from "@/lib/contact-submissions";
 import { listPortfolioProjects } from "@/lib/portfolio";
+import { listApplications } from "@/lib/applications";
+import { listJobs } from "@/lib/jobs";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard",
@@ -13,16 +15,18 @@ export const metadata: Metadata = {
 };
 
 export default async function DashboardPage() {
-  const [messages, projects] = await Promise.all([
+  const [messages, projects, applications, jobs] = await Promise.all([
     listContactSubmissions().catch(() => []),
-    listPortfolioProjects().catch(() => [])
+    listPortfolioProjects().catch(() => []),
+    listApplications().catch(() => []),
+    listJobs(true).catch(() => [])
   ]);
 
   return (
     <div className="grid gap-7">
       <PageHeader title="Dashboard" description="Welcome back, Admin. Here is what is happening across KenoraTech." />
-      <DashboardStats messageCount={messages.length} projectCount={projects.length} />
-      <VisitorsChart />
+      <DashboardStats messageCount={messages.length} projectCount={projects.length} applicationCount={applications.length} jobCount={jobs.length} />
+      <VisitorsChart applications={applications} />
       <div className="grid gap-5 xl:grid-cols-3">
         <RecentMessages messages={messages} />
         <section className="rounded-[24px] border border-white/[0.08] bg-[#0D1323]/82 p-5 backdrop-blur-2xl">
@@ -39,7 +43,7 @@ export default async function DashboardPage() {
             )) : <p className="rounded-2xl bg-white/[0.03] p-4 text-sm text-white/50">No projects yet.</p>}
           </div>
         </section>
-        <ActivityFeed />
+        <ActivityFeed messages={messages} projects={projects} applications={applications} jobs={jobs} />
       </div>
     </div>
   );
