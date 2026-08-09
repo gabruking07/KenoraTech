@@ -88,15 +88,6 @@ export function ComingSoonPage() {
       </div>
 
       <section className="launch-content" aria-label="KenoraTech launch countdown">
-        <Image
-          className="launch-logo"
-          src="/kenora-tech-logo.png"
-          alt="KenoraTech"
-          width={1254}
-          height={1254}
-          priority
-        />
-        <p className="launch-eyebrow">KENORATECH</p>
         <h1>Something Big <span>Is Coming</span></h1>
         <p className="launch-brand">KenoraTech</p>
 
