@@ -13,11 +13,11 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL("https://kenoratech.com"),
   title: {
-    default: "Kenora Tech | Modern Websites & Digital Products",
-    template: "%s | Kenora Tech"
+    default: "KenoraTech — Something Big Is Coming",
+    template: "%s | KenoraTech"
   },
   description:
-    "Kenora Tech builds modern websites, web applications, e-commerce platforms, UI/UX systems and maintenance plans for growing businesses.",
+    "Something big is coming from KenoraTech. The official launch is tomorrow at 8:00 AM.",
   keywords: [
     "Kenora Tech",
     "website development",
@@ -26,8 +26,8 @@ export const metadata: Metadata = {
     "UI UX design"
   ],
   openGraph: {
-    title: "Kenora Tech",
-    description: "Transforming ideas into digital products for ambitious businesses.",
+    title: "KenoraTech — Something Big Is Coming",
+    description: "Something big is coming from KenoraTech. The official launch is tomorrow at 8:00 AM.",
     url: "https://kenoratech.com",
     siteName: "Kenora Tech",
     type: "website"
