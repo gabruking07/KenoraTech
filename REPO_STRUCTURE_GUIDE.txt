@@ -7,6 +7,37 @@ This is a Next.js 15, React 19, TypeScript and Tailwind CSS website for Kenora T
 The app uses the Next.js App Router. Pages live inside the app folder. Most visual blocks live inside components. Shared text lives in lib/content.ts. Portfolio projects and contact submissions are stored in MongoDB Atlas.
 
 
+Current Temporary Launch Mode (important)
+
+The public website is temporarily replaced with the “Something Big Is Coming” launch screen.
+
+components/app-shell.tsx
+Contains the LAUNCH_MODE switch near the top of the file.
+
+To launch the original website at 8:00 AM IST tomorrow:
+1. Open components/app-shell.tsx.
+2. Change: const LAUNCH_MODE = true;
+3. To:     const LAUNCH_MODE = false;
+4. Save and deploy the change before or at 8:00 AM IST.
+
+This immediately restores all existing public routes, including the header, footer, homepage, services, portfolio, pricing, contact, and legal pages. Nothing was deleted.
+
+components/coming-soon-page.tsx
+The temporary launch page itself. It includes:
+- Existing KenoraTech logo from public/kenora-tech-logo.png
+- “Something Big Is Coming” message
+- Tomorrow 8:00 AM IST date display
+- Live countdown, calculated in Asia/Kolkata time and updated every second
+- “WE ARE LIVE” state once the countdown reaches zero
+- Animated drifting particles and ambient background effects
+
+app/globals.css
+Contains the launch page styles under the comment: “Temporary public launch experience.”
+
+app/layout.tsx
+Contains the temporary page title and meta description. After launch, restore the normal website metadata here if you want the previous SEO copy back.
+
+
 Main Folders
 
 app/
@@ -440,6 +471,67 @@ Pricing page hero artwork used by components/pricing/PricingHero.tsx.
 
 assets/KenoraTech.png
 KenoraTech brand/image asset.
+
+assets/careers.png, assets/error_page.png and assets/maintenance.png
+Artwork used by the careers, error/not-found, and maintenance experiences.
+
+
+Additional Complete Folder Map
+
+app/ (all route-level code)
+- app/careers/page.tsx: careers route; it uses components/careers/careers-page.tsx.
+- app/process/page.tsx: process route.
+- app/maintenance/page.tsx: maintenance route.
+- app/terms-and-conditions/page.tsx, app/privacy-policy/page.tsx, app/cookie-policy/page.tsx and app/copyright-notice/page.tsx: legal routes.
+- app/not-found.tsx: custom 404 page.
+- app/api/applications/: application submission API routes.
+- app/api/jobs/: jobs API routes.
+- app/api/pricing/route.ts: pricing API route.
+- app/api/team-image/[id]/route.ts and app/api/admin/team-image/route.ts: team-image upload/read routes.
+- app/api/maintenance-notifications/route.ts: maintenance notification API route.
+- app/api/admin/content/[type]/route.ts: admin content API route.
+
+components/ (all reusable presentation and interaction code)
+- components/app-shell.tsx: public-site wrapper and temporary launch mode switch.
+- components/coming-soon-page.tsx: temporary launch experience and countdown logic.
+- components/dynamic-background.tsx: reusable animated background used by the regular public site.
+- components/maintenance-page.tsx: maintenance screen UI.
+- components/not-found-experience.tsx: custom 404 screen UI.
+- components/legal-page.tsx: shared legal-page layout.
+- components/careers/careers-page.tsx: careers page UI.
+- components/sections/home-three-hero.tsx: current homepage hero used by app/page.tsx.
+- components/sections/about-three-hero.tsx: about page hero.
+- components/sections/services-page-content.tsx and process-page-content.tsx: full services/process route content.
+- components/sections/team-section.tsx: team section.
+- components/sections/process-page-content.tsx: process page content.
+
+lib/ (business logic, integrations, and shared data helpers)
+- lib/applications.ts: application persistence helpers.
+- lib/careers-mail.ts: careers email helper.
+- lib/cloudinary.ts: Cloudinary media helper.
+- lib/jobs.ts: job data helpers.
+- lib/maintenance-notifications.ts: maintenance notification helpers.
+- lib/contact-submissions.ts, lib/portfolio.ts and lib/mongodb.ts: MongoDB-backed contact and portfolio data.
+- lib/admin-auth.ts: ADMIN_TOKEN protection helper.
+- lib/content.ts: shared public-site content.
+- lib/utils.ts: class-name utility.
+
+data/admin/ (static data used to display admin UI)
+- dashboard.ts, messages.ts, projects.ts, services.ts and team.ts: sample/admin display data and types.
+
+public/ (files available directly by URL)
+- kenora-tech-logo.png: official logo used by the launch page and normal site.
+- portfolio/: local SVG project thumbnails.
+- robots.txt and sitemap.xml: search engine files.
+
+Root and generated folders
+- .agents/: local agent workspace files; not part of the deployed website.
+- .git/: Git history and configuration; do not edit manually.
+- .next/: generated Next.js development/build output; do not edit or commit.
+- node_modules/: installed packages; do not edit or commit.
+- .env.local: local secret values and deployment configuration; do not commit.
+- .env.example: safe environment-variable template; update it when required variables change.
+- DEPLOYMENT.md: deployment notes for MongoDB Atlas, Vercel and Render.
 
 
 Files And Folders You Can Ignore

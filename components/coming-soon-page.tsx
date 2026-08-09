@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { type CSSProperties, useEffect, useState } from "react";
 
 type TimeLeft = {
   days: number;
@@ -11,11 +11,11 @@ type TimeLeft = {
   isLive: boolean;
 };
 
-const particlePositions = [
-  [6, 14, 1.5, 1], [12, 76, 1, 2], [18, 30, 1, 3], [24, 60, 1.5, 0],
-  [33, 10, 1, 2], [39, 81, 1.5, 1], [46, 22, 1, 3], [54, 73, 1, 0],
-  [62, 12, 1.5, 2], [69, 50, 1, 1], [76, 20, 1.5, 3], [83, 77, 1, 0],
-  [91, 37, 1, 2], [95, 68, 1.5, 1]
+const particles = [
+  [6, 14, 1.5, 18, -24, 11, -1], [12, 76, 1, -22, -18, 14, -4], [18, 30, 1, 26, 15, 10, -7], [24, 60, 1.5, -18, 24, 13, -2],
+  [33, 10, 1, 14, 28, 12, -6], [39, 81, 1.5, 30, -20, 15, -3], [46, 22, 1, -24, 18, 11, -8], [54, 73, 1, 20, -30, 13, -5],
+  [62, 12, 1.5, -20, 22, 14, -9], [69, 50, 1, 28, 18, 10, -2], [76, 20, 1.5, -26, -16, 15, -6], [83, 77, 1, 18, -26, 12, -4],
+  [91, 37, 1, -16, 28, 13, -7], [95, 68, 1.5, -30, -18, 11, -3]
 ];
 
 function getTomorrowAtEightIST() {
@@ -70,10 +70,19 @@ export function ComingSoonPage() {
       <div className="launch-orb launch-orb-one" aria-hidden="true" />
       <div className="launch-orb launch-orb-two" aria-hidden="true" />
       <div className="launch-particles" aria-hidden="true">
-        {particlePositions.map(([left, top, size, delay], index) => (
+        {particles.map(([left, top, size, driftX, driftY, duration, delay], index) => (
           <span
             key={index}
-            style={{ left: `${left}%`, top: `${top}%`, width: `${size * 3}px`, height: `${size * 3}px`, animationDelay: `${delay}s` }}
+            style={{
+              left: `${left}%`,
+              top: `${top}%`,
+              width: `${size * 3}px`,
+              height: `${size * 3}px`,
+              "--particle-x": `${driftX}px`,
+              "--particle-y": `${driftY}px`,
+              "--particle-duration": `${duration}s`,
+              "--particle-delay": `${delay}s`
+            } as CSSProperties}
           />
         ))}
       </div>

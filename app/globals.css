@@ -117,7 +117,7 @@ body {
 .launch-orb { position: absolute; z-index: -1; border-radius: 999px; filter: blur(10px); opacity: 0.5; animation: launch-drift 12s ease-in-out infinite; }
 .launch-orb-one { width: 22rem; height: 22rem; top: -10rem; left: -7rem; background: rgb(35 96 255 / 0.22); }
 .launch-orb-two { width: 18rem; height: 18rem; right: -5rem; bottom: -8rem; background: rgb(147 46 255 / 0.22); animation-delay: -6s; }
-.launch-particles span { position: absolute; border-radius: 50%; background: #86a9ff; box-shadow: 0 0 12px 3px rgb(81 111 255 / 0.55); opacity: 0.45; animation: launch-twinkle 4s ease-in-out infinite; }
+.launch-particles span { position: absolute; border-radius: 50%; background: #86a9ff; box-shadow: 0 0 12px 3px rgb(81 111 255 / 0.55); opacity: 0.45; animation: launch-particle-drift var(--particle-duration, 12s) ease-in-out infinite; animation-delay: var(--particle-delay, 0s); will-change: transform, opacity; }
 
 .launch-content { width: min(100%, 58rem); padding: 2.25rem 1.25rem; text-align: center; }
 .launch-logo { width: 6.8rem; height: 6.8rem; margin: 0 auto 0.15rem; object-fit: cover; object-position: center 40%; mix-blend-mode: screen; filter: drop-shadow(0 0 22px rgb(76 104 255 / 0.38)); animation: launch-logo 6s ease-in-out infinite; }
@@ -139,7 +139,7 @@ body {
 .launch-ready { margin-top: 2rem; color: #eef1ff; }
 .launch-live { margin: 2.4rem 0 0; color: #ffffff; font-size: clamp(1.6rem, 5vw, 3.2rem); font-weight: 750; letter-spacing: 0.2em; text-shadow: 0 0 28px rgb(116 140 255 / 0.8); }
 
-@keyframes launch-twinkle { 0%, 100% { opacity: 0.2; transform: scale(0.7); } 50% { opacity: 1; transform: scale(1.2); } }
+@keyframes launch-particle-drift { 0%, 100% { opacity: 0.16; transform: translate3d(0, 0, 0) scale(0.7); } 45% { opacity: 0.9; transform: translate3d(var(--particle-x), var(--particle-y), 0) scale(1.2); } 70% { opacity: 0.36; transform: translate3d(calc(var(--particle-x) * 0.38), calc(var(--particle-y) * 0.38), 0) scale(0.85); } }
 @keyframes launch-drift { 50% { transform: translate(2rem, 1rem) scale(1.12); } }
 @keyframes launch-logo { 50% { filter: drop-shadow(0 0 30px rgb(112 91 255 / 0.65)); transform: translateY(-4px); } }
 
