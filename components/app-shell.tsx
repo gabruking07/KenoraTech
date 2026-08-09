@@ -5,6 +5,10 @@ import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { WhatsAppButton } from "@/components/whatsapp-button";
 import { DynamicBackground } from "@/components/dynamic-background";
+import { ComingSoonPage } from "@/components/coming-soon-page";
+
+// Set to false after launch to restore every existing public page unchanged.
+const LAUNCH_MODE = true;
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -12,6 +16,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   if (isAdmin) {
     return <main>{children}</main>;
+  }
+
+  if (LAUNCH_MODE) {
+    return <ComingSoonPage />;
   }
 
   return (
