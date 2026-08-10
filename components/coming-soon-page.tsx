@@ -18,7 +18,7 @@ const particles = [
   [91, 37, 1, -16, 28, 13, -7], [95, 68, 1.5, -30, -18, 11, -3]
 ];
 
-function getTomorrowAtEightIST() {
+function getTodatAtEightIST() {
   const parts = new Intl.DateTimeFormat("en-US", {
     timeZone: "Asia/Kolkata",
     year: "numeric",
@@ -36,7 +36,7 @@ function getTimeLeft(targetTime: number): TimeLeft {
   const totalSeconds = Math.floor(difference / 1000);
 
   return {
-    days: Math.floor(totalSeconds / 86400),
+    days: 0,
     hours: Math.floor((totalSeconds % 86400) / 3600),
     minutes: Math.floor((totalSeconds % 3600) / 60),
     seconds: totalSeconds % 60,
@@ -50,7 +50,7 @@ export function ComingSoonPage() {
   const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null);
 
   useEffect(() => {
-    const targetTime = getTomorrowAtEightIST().getTime();
+    const targetTime = getTodatAtEightIST().getTime();
     const updateCountdown = () => {
       const nextTimeLeft = getTimeLeft(targetTime);
       setTimeLeft(nextTimeLeft);
