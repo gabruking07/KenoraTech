@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-import { classifySource } from "@/lib/analytics";
+import { classifySource } from "@/lib/traffic-source";
 
 const id = () => crypto.randomUUID();
 const device = () => /ipad|tablet/i.test(navigator.userAgent) ? "Tablet" : /mobi|android/i.test(navigator.userAgent) ? "Mobile" : "Desktop";
