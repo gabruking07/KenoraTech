@@ -4,6 +4,7 @@ import { DashboardStats } from "@/components/admin/dashboard/DashboardStats";
 import { VisitorsChart } from "@/components/admin/dashboard/VisitorsChart";
 import { RecentMessages } from "@/components/admin/dashboard/RecentMessages";
 import { ActivityFeed } from "@/components/admin/dashboard/ActivityFeed";
+import { AnalyticsPanel } from "@/components/admin/AnalyticsPanel";
 import { listContactSubmissions } from "@/lib/contact-submissions";
 import { listPortfolioProjects } from "@/lib/portfolio";
 import { listApplications } from "@/lib/applications";
@@ -26,6 +27,7 @@ export default async function DashboardPage() {
     <div className="grid gap-7">
       <PageHeader title="Dashboard" description="Welcome back, Admin. Here is what is happening across KenoraTech." />
       <DashboardStats messageCount={messages.length} projectCount={projects.length} applicationCount={applications.length} jobCount={jobs.length} />
+      <AnalyticsPanel />
       <VisitorsChart applications={applications} />
       <div className="grid gap-5 xl:grid-cols-3">
         <RecentMessages messages={messages} />

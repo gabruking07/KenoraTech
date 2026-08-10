@@ -6,6 +6,7 @@ import { Header } from "@/components/layout/header";
 import { WhatsAppButton } from "@/components/whatsapp-button";
 import { DynamicBackground } from "@/components/dynamic-background";
 import { ComingSoonPage } from "@/components/coming-soon-page";
+import { AnalyticsTracker } from "@/components/analytics-tracker";
 
 // Set to false after launch to restore every existing public page unchanged.
 const LAUNCH_MODE = false;
@@ -24,6 +25,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="relative z-0 flex min-h-screen flex-col bg-transparent">
+      <AnalyticsTracker />
       <DynamicBackground />
       <Header />
       <main className="flex-1">{children}</main>
