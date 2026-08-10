@@ -92,7 +92,7 @@ export function ComingSoonPage() {
         <p className="launch-brand">KenoraTech</p>
 
         <div className="launch-rule" aria-hidden="true"><i /></div>
-        <p className="launch-date">TOMORROW <b>•</b> 8:00 AM</p>
+        <p className="launch-date">TODAY <b>•</b> 8:00 AM</p>
         <p className="launch-timezone">IST · INDIA STANDARD TIME</p>
 
         {timeLeft?.isLive ? (
