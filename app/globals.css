@@ -85,6 +85,10 @@ body {
   color: #f7f9ff;
 }
 
+.team-social { display: grid; height: 2.7rem; width: 2.7rem; place-items: center; border: 1px solid rgb(114 139 255 / .75); border-radius: 999px; color: #b9cdff; transition: transform .2s ease, border-color .2s ease, color .2s ease, box-shadow .2s ease; }
+.team-social svg { height: 1.05rem; width: 1.05rem; }
+.team-social:hover { transform: translateY(-2px); border-color: #b66bff; color: white; box-shadow: 0 0 18px rgb(127 85 255 / .45); }
+
 .launch-page::before,
 .launch-page::after {
   position: absolute;
