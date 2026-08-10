@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Edit3, ExternalLink, Star, Trash2 } from "lucide-react";
+import { ArrowDown, ArrowUp, Edit3, ExternalLink, Star, Trash2 } from "lucide-react";
 import { DataTable } from "@/components/admin/DataTable";
 import { EmptyState } from "@/components/admin/EmptyState";
 import { Loading } from "@/components/admin/Loading";
@@ -28,6 +28,7 @@ export function ProjectsTable() {
   }, []);
 
   async function deleteProject(id: string) {
+    if (!window.confirm("Delete this project? This cannot be undone.")) return;
     const token = window.localStorage.getItem("kenora-admin-token") || "";
     const response = await fetch(`/api/portfolio/${id}`, {
       method: "DELETE",
@@ -42,6 +43,22 @@ export function ProjectsTable() {
 
     setStatus("Project deleted.");
     await loadProjects();
+  }
+
+  async function moveProject(index: number, direction: -1 | 1) {
+    const next = [...projects];
+    const target = index + direction;
+    if (target < 0 || target >= next.length) return;
+    [next[index], next[target]] = [next[target], next[index]];
+    setProjects(next);
+    const token = window.localStorage.getItem("kenora-admin-token") || "";
+    const responses = await Promise.all(next.map((project, sortOrder) => fetch(`/api/portfolio/${project.id}`, {
+      method: "PUT",
+      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ ...project, sortOrder })
+    })));
+    if (responses.some((response) => !response.ok)) { setStatus("Project order could not be saved."); await loadProjects(); }
+    else setStatus("Project display order saved.");
   }
 
   if (loading) {
@@ -99,7 +116,7 @@ export function ProjectsTable() {
                 <td className="px-5 py-4">
                   <Star className="h-5 w-5 text-white/28" />
                 </td>
-                <td className="px-5 py-4 font-bold text-white">#{project.sortOrder}</td>
+                <td className="px-5 py-4"><div className="flex items-center gap-1"><span className="font-bold text-white">#{index + 1}</span><button disabled={index === 0} onClick={() => void moveProject(index, -1)} className="rounded p-1 text-white/50 disabled:opacity-25"><ArrowUp className="h-3.5 w-3.5" /></button><button disabled={index === projects.length - 1} onClick={() => void moveProject(index, 1)} className="rounded p-1 text-white/50 disabled:opacity-25"><ArrowDown className="h-3.5 w-3.5" /></button></div></td>
                 <td className="px-5 py-4">
                   <div className="flex items-center gap-2">
                     <Link href={`/admin/projects/${project.id}`} className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-white/62 transition hover:border-[#3B82F6]/50 hover:text-white">
