@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { isAuthorizedAdmin } from "@/lib/admin-auth";
-import { analyticsCollections, trafficSources } from "@/lib/analytics";
+import { analyticsCollections } from "@/lib/analytics";
+import { trafficSources } from "@/lib/traffic-source";
 
 export const runtime = "nodejs";
 export async function GET(request: NextRequest) {

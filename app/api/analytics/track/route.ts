@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { analyticsCollections, classifySource } from "@/lib/analytics";
+import { analyticsCollections } from "@/lib/analytics";
+import { classifySource } from "@/lib/traffic-source";
 
 export const runtime = "nodejs";
 const validId = (value: unknown) => typeof value === "string" && /^[a-z0-9-]{20,80}$/i.test(value);
