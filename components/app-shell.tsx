@@ -8,7 +8,7 @@ import { DynamicBackground } from "@/components/dynamic-background";
 import { ComingSoonPage } from "@/components/coming-soon-page";
 
 // Set to false after launch to restore every existing public page unchanged.
-const LAUNCH_MODE = true;
+const LAUNCH_MODE = false;
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
