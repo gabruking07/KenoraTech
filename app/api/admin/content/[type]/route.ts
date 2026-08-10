@@ -17,7 +17,7 @@ function clean(type: string, body: Record<string, unknown>) {
   const title = text(body.title, 160);
   const description = text(body.description, 4000);
   if (type !== "settings" && type !== "home" && !title) throw new Error("A title is required.");
-  if (["services", "team", "process", "testimonials"].includes(type) && !description) throw new Error("A description is required.");
+  if (["services", "process", "testimonials"].includes(type) && !description) throw new Error("A description is required.");
   const imageId = text(body.imageId, 64);
   if (imageId && !ObjectId.isValid(imageId)) throw new Error("Invalid image reference.");
   return {
