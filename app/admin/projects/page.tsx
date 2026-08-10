@@ -4,6 +4,7 @@ import { Plus } from "lucide-react";
 import { PageHeader } from "@/components/admin/PageHeader";
 import { SearchBar } from "@/components/admin/SearchBar";
 import { ProjectsTable } from "@/components/admin/projects/ProjectsTable";
+import { DemoRequestsPanel } from "@/components/admin/projects/DemoRequestsPanel";
 
 export const metadata: Metadata = {
   title: "Portfolio Projects",
@@ -32,6 +33,7 @@ export default function ProjectsPage() {
         </select>
       </div>
       <ProjectsTable />
+      <DemoRequestsPanel />
       <div className="flex items-center justify-between text-sm text-white/46">
         <span>Showing 1-5 of 18 projects</span>
         <div className="flex gap-2">

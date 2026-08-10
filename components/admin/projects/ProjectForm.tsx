@@ -24,7 +24,8 @@ const emptyForm = {
   tags: "",
   imageUrl: "",
   liveUrl: "",
-  sortOrder: "0"
+  sortOrder: "0",
+  demoUrl: ""
 };
 
 export function ProjectForm({ initialProject }: { initialProject?: PortfolioProject }) {
@@ -36,8 +37,12 @@ export function ProjectForm({ initialProject }: { initialProject?: PortfolioProj
     tags: initialProject?.tags.join(", ") || emptyForm.tags,
     imageUrl: initialProject?.imageUrl || emptyForm.imageUrl,
     liveUrl: initialProject?.liveUrl || emptyForm.liveUrl,
-    sortOrder: String(initialProject?.sortOrder ?? 0)
+    sortOrder: String(initialProject?.sortOrder ?? 0),
+    demoUrl: ""
   });
+  const [demoEnabled, setDemoEnabled] = useState(initialProject?.demoEnabled || false);
+  const [demoRequiresApproval, setDemoRequiresApproval] = useState(initialProject?.demoRequiresApproval || false);
+  const [watermarkEnabled, setWatermarkEnabled] = useState(initialProject?.watermarkEnabled || false);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState("");
 
@@ -63,6 +68,10 @@ export function ProjectForm({ initialProject }: { initialProject?: PortfolioProj
           body: JSON.stringify({
             ...form,
             sortOrder: Number(form.sortOrder || 0),
+            demoEnabled,
+            demoRequiresApproval,
+            demoUrl: form.demoUrl,
+            watermarkEnabled,
             tags: form.tags.split(",").map((tag) => tag.trim()).filter(Boolean)
           })
         });
@@ -143,6 +152,13 @@ export function ProjectForm({ initialProject }: { initialProject?: PortfolioProj
           <Field label="Sort Order">
             <input className={inputClass} type="number" value={form.sortOrder} onChange={(event) => updateField("sortOrder", event.target.value)} />
           </Field>
+          <div className="grid gap-3 rounded-2xl border border-white/[0.08] bg-[#050816]/60 p-4">
+            <p className="text-sm font-bold text-white">Protected Demo Settings</p>
+            <label className="flex items-center justify-between gap-3 text-sm text-white/70"><span>Demo enabled</span><input type="checkbox" checked={demoEnabled} onChange={(event) => { setDemoEnabled(event.target.checked); if (!event.target.checked) setDemoRequiresApproval(false); }} /></label>
+            <label className="flex items-center justify-between gap-3 text-sm text-white/70"><span>Requires approval</span><input type="checkbox" disabled={!demoEnabled} checked={demoRequiresApproval} onChange={(event) => setDemoRequiresApproval(event.target.checked)} /></label>
+            <Field label="Protected Demo URL (admin only)"><input className={inputClass} type="url" value={form.demoUrl} onChange={(event) => updateField("demoUrl", event.target.value)} placeholder="https://your-demo.vercel.app" /></Field>
+            <label className="flex items-center justify-between gap-3 text-sm text-white/70"><span>Personalized watermark</span><input type="checkbox" disabled={!demoEnabled} checked={watermarkEnabled} onChange={(event) => setWatermarkEnabled(event.target.checked)} /></label>
+          </div>
           <Field label="Completion Date">
             <div className="relative">
               <CalendarDays className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-white/36" />

@@ -37,11 +37,11 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         <h3 className="text-xl font-bold tracking-normal text-white">{project.title}</h3>
         <p className="mt-2 min-h-[72px] text-sm leading-6 text-white/72">{project.description}</p>
         <Link
-          href={project.liveUrl || "/contact"}
+          href={project.demoEnabled && project.demoRequiresApproval ? `/contact?demo=${encodeURIComponent(project.id)}` : project.liveUrl || "/contact"}
           className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[#c062ff] transition hover:text-[#37b8ff] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1aa8ff]"
-          aria-label={`View ${project.title} project`}
+          aria-label={project.demoEnabled && project.demoRequiresApproval ? `Request demo access for ${project.title}` : `View ${project.title} project`}
         >
-          View Project
+          {project.demoEnabled && project.demoRequiresApproval ? "Request Demo Access" : "View Project"}
           <ArrowRight className="h-4 w-4" />
         </Link>
       </div>

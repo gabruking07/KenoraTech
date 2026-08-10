@@ -10,6 +10,9 @@ export type PortfolioProject = {
   tags: string[];
   imageUrl?: string;
   liveUrl?: string;
+  demoEnabled: boolean;
+  demoRequiresApproval: boolean;
+  watermarkEnabled: boolean;
   sortOrder: number;
   createdAt: string;
 };
@@ -22,6 +25,10 @@ export type PortfolioProjectInput = {
   tags: string[];
   imageUrl?: string;
   liveUrl?: string;
+  demoEnabled?: boolean;
+  demoRequiresApproval?: boolean;
+  demoUrl?: string;
+  watermarkEnabled?: boolean;
   sortOrder?: number;
 };
 
@@ -39,6 +46,9 @@ function normalizeProject(doc: Document): PortfolioProject {
     tags: Array.isArray(doc.tags) ? doc.tags : [],
     imageUrl: doc.imageUrl || undefined,
     liveUrl: doc.liveUrl || undefined,
+    demoEnabled: doc.demoEnabled === true,
+    demoRequiresApproval: doc.demoRequiresApproval === true,
+    watermarkEnabled: doc.watermarkEnabled === true,
     sortOrder: Number(doc.sortOrder || 0),
     createdAt: doc.createdAt?.toISOString?.() || new Date().toISOString()
   };
@@ -65,6 +75,10 @@ function sanitizeProjectInput(input: Partial<PortfolioProjectInput>) {
     tags,
     imageUrl: cleanString(input.imageUrl) || undefined,
     liveUrl: cleanString(input.liveUrl) || undefined,
+    demoEnabled: input.demoEnabled === true,
+    demoRequiresApproval: input.demoEnabled === true && input.demoRequiresApproval === true,
+    demoUrl: cleanString(input.demoUrl) || undefined,
+    watermarkEnabled: input.watermarkEnabled === true,
     sortOrder: Number(input.sortOrder || 0)
   };
 }
@@ -106,6 +120,13 @@ export async function updatePortfolioProject(id: string, input: Partial<Portfoli
 
   const collection = await getPortfolioCollection();
   const project = sanitizeProjectInput(input);
+  const existing = await collection.findOne({ _id: new ObjectId(id) });
+  if (!existing) {
+    throw new Error("Project could not be found.");
+  }
+  // Protected demo URLs are never returned by the public project API; preserve the
+  // existing private URL unless an admin explicitly enters a replacement value.
+  if (!project.demoUrl && existing.demoUrl) project.demoUrl = existing.demoUrl;
   await collection.updateOne(
     { _id: new ObjectId(id) },
     {
