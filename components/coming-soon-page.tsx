@@ -4,7 +4,6 @@ import Image from "next/image";
 import { type CSSProperties, useEffect, useState } from "react";
 
 type TimeLeft = {
-  days: number;
   hours: number;
   minutes: number;
   seconds: number;
@@ -36,7 +35,6 @@ function getTimeLeft(targetTime: number): TimeLeft {
   const totalSeconds = Math.floor(difference / 1000);
 
   return {
-    days: Math.floor(totalSeconds / 86400),
     hours: Math.floor((totalSeconds % 86400) / 3600),
     minutes: Math.floor((totalSeconds % 3600) / 60),
     seconds: totalSeconds % 60,
@@ -44,7 +42,7 @@ function getTimeLeft(targetTime: number): TimeLeft {
   };
 }
 
-const units = ["Days", "Hours", "Minutes", "Seconds"] as const;
+const units = ["Hours", "Minutes", "Seconds"] as const;
 
 export function ComingSoonPage() {
   const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null);
@@ -61,8 +59,8 @@ export function ComingSoonPage() {
   }, []);
 
   const values = timeLeft
-    ? [timeLeft.days, timeLeft.hours, timeLeft.minutes, timeLeft.seconds]
-    : [0, 0, 0, 0];
+    ? [timeLeft.hours, timeLeft.minutes, timeLeft.seconds]
+    : [0, 0, 0];
 
   return (
     <main className="launch-page">
