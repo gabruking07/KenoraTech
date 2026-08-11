@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, X } from "lucide-react";
+import { useState } from "react";
 import type { PortfolioProject } from "@/lib/portfolio";
 
 interface ProjectCardProps {
@@ -12,6 +13,7 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
+  const [open, setOpen] = useState(false); const [status, setStatus] = useState("");
   return (
     <motion.article
       initial={{ opacity: 0, y: 30 }}
@@ -36,15 +38,12 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       <div className="relative z-10 px-1 pb-1 pt-5">
         <h3 className="text-xl font-bold tracking-normal text-white">{project.title}</h3>
         <p className="mt-2 min-h-[72px] text-sm leading-6 text-white/72">{project.description}</p>
-        <Link
-          href={project.demoEnabled && project.demoRequiresApproval ? `/contact?demo=${encodeURIComponent(project.id)}` : project.liveUrl || "/contact"}
+        {project.demoEnabled && project.demoRequiresApproval ? <button onClick={() => setOpen(true)}
           className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[#c062ff] transition hover:text-[#37b8ff] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1aa8ff]"
           aria-label={project.demoEnabled && project.demoRequiresApproval ? `Request demo access for ${project.title}` : `View ${project.title} project`}
-        >
-          {project.demoEnabled && project.demoRequiresApproval ? "Request Demo Access" : "View Project"}
-          <ArrowRight className="h-4 w-4" />
-        </Link>
+        >Request Demo Access <ArrowRight className="h-4 w-4" /></button> : <Link href={project.liveUrl || "/contact"} className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[#c062ff] transition hover:text-[#37b8ff]">View Project <ArrowRight className="h-4 w-4" /></Link>}
       </div>
+      {open ? <div className="fixed inset-0 z-50 grid place-items-center bg-black/75 p-4" onClick={() => setOpen(false)}><form onClick={(e) => e.stopPropagation()} onSubmit={async (e) => { e.preventDefault(); const data = new FormData(e.currentTarget); const r = await fetch("/api/demo-requests", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(Object.fromEntries(data)) }); const b = await r.json().catch(() => null); setStatus(r.ok ? "Your demo access request has been submitted. Our team will review it." : b?.error || "Unable to submit request."); if (r.ok) e.currentTarget.reset(); }} className="w-full max-w-lg rounded-3xl border border-white/10 bg-[#0D1323] p-6 shadow-2xl"><div className="flex justify-between"><div><h2 className="text-xl font-black">Request Demo Access</h2><p className="mt-1 text-sm text-white/60">{project.title}</p></div><button type="button" onClick={() => setOpen(false)}><X /></button></div><input type="hidden" name="projectId" value={project.id}/><input type="hidden" name="projectTitle" value={project.title}/><div className="mt-5 grid gap-3">{[["name","Full name *","text"],["email","Email *","email"],["company","Company / Organization","text"],["phone","Phone","tel"]].map(([name,placeholder,type]) => <input key={name} name={name} required={name === "name" || name === "email"} type={type} placeholder={placeholder} className="h-11 rounded-xl border border-white/10 bg-[#050816] px-4 text-sm text-white"/>)}<textarea name="reason" required placeholder="Reason for requesting demo *" rows={3} className="rounded-xl border border-white/10 bg-[#050816] p-4 text-sm text-white"/><textarea name="message" placeholder="Message (optional)" rows={2} className="rounded-xl border border-white/10 bg-[#050816] p-4 text-sm text-white"/><button className="h-11 rounded-xl bg-gradient-to-r from-[#8B5CF6] to-[#3B82F6] text-sm font-bold">Submit Request</button>{status?<p className="text-sm text-white/70">{status}</p>:null}</div></form></div> : null}
     </motion.article>
   );
 }

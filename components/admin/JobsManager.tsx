@@ -26,7 +26,7 @@ function JobModal({ job, onClose, onSaved }: { job: Job | null; onClose: () => v
 }
 
 const selectOptions: Record<string, string[]> = {
-  "Job title": ["AI Engineer", "Android Developer", "ASP.NET Developer", "Backend Developer", "Business Analyst", "Cloud Engineer", "Cybersecurity Engineer", "Data Analyst","DevOps Engineer","Flutter Developer", "Frontend Developer", "Full Stack Developer", "Game Developer", "Graphic Designer", "HR Executive", "MERN Stack Developer", "Mobile App Developer", "Project Manager", "SEO Specialist", "Software Development", "Technical Support Engineer", "UI/UX Designer", "Web Designer"],
+  "Job title": ["AI Engineer", "Android Developer", "ASP.NET Developer", "Backend Developer", "Business Analyst", "Cloud Engineer", "Cybersecurity Engineer", "Data Analyst", "DevOps Engineer", "Flutter Developer", "Frontend Developer", "Full Stack Developer", "Game Developer", "Graphic Designer", "HR Executive", "Marketing & Growth Manager", "MERN Stack Developer", "Mobile App Developer", "Project Manager", "SEO Specialist", "Software Development", "Technical Support Engineer", "UI/UX Designer", "Web Designer"],
   Location: ["Remote", "Onsite"],
   Department: ["Engineering", "Frontend", "Backend", "Full Stack", "Mobile Development", "UI/UX Design", "Graphic Design", "Quality Assurance", "DevOps", "Cloud", "Cybersecurity", "Artificial Intelligence", "Data Science", "Product", "Project Management", "Marketing", "SEO", "Content", "Sales", "Business Development", "Customer Support", "Human Resources", "Finance", "Administration", "Internships"],
   "Employment type": ["Full-time", "Part-time", "Internship", "Contract", "Freelance", "Temporary"],
