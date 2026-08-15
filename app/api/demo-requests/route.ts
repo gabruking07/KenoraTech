@@ -28,8 +28,12 @@ export async function PATCH(request: NextRequest) {
     const token = createSecret(), url = new URL(demoUrl), durationSeconds = demoDurations[durationKey]; url.searchParams.set("access_token", token);
     const { access, audit } = await demoCollections(), now = new Date();
     const accessRecord = await access.insertOne({ requestId: item._id.toString(), projectId: item.projectId, email: item.email, tokenHash: hashToken(token), status: "ISSUED", accessDurationSeconds: durationSeconds, issuedAt: now });
-    const mailed = await sendDemoApprovalEmail({ to: item.email, name: item.name, projectTitle: item.projectTitle, accessUrl: url.toString(), durationLabel: durationKey });
-    if (!mailed) { await access.deleteOne({ _id: accessRecord.insertedId }); return NextResponse.json({ error: "Email is not configured. Add SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, and MAIL_FROM, then try again." }, { status: 503 }); }
+    const emailResult = await sendDemoApprovalEmail({ to: item.email, name: item.name, projectTitle: item.projectTitle, accessUrl: url.toString(), durationLabel: durationKey });
+    if (emailResult !== "sent") {
+      await access.deleteOne({ _id: accessRecord.insertedId });
+      if (emailResult === "not_configured") return NextResponse.json({ error: "Email is not configured. Add SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, and MAIL_FROM, then try again.", code: "SMTP_NOT_CONFIGURED" }, { status: 503 });
+      return NextResponse.json({ error: "Demo approved, but the email could not be sent. Please check the email configuration.", code: "EMAIL_SEND_FAILED" }, { status: 502 });
+    }
     await audit.insertOne({ demoAccessId: accessRecord.insertedId.toString(), action: "ACCESS_ISSUED", timestamp: now });
     const result = await requests.findOneAndUpdate({ _id: item._id }, { $set: { status, reviewedAt: now, accessDuration: durationKey, emailSentAt: now, demoAccessId: accessRecord.insertedId.toString() } }, { returnDocument: "after" }); const { _id, ...updated } = result!;
     return NextResponse.json({ request: { id: _id.toString(), ...updated } });

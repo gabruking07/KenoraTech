@@ -1,33 +1,47 @@
 import nodemailer from "nodemailer";
 import type { Application } from "@/lib/applications";
 
-function transport() {
-  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = process.env;
-  if (!SMTP_HOST || !SMTP_PORT || !SMTP_USER || !SMTP_PASS) return null;
-  return nodemailer.createTransport({ host: SMTP_HOST, port: Number(SMTP_PORT), secure: Number(SMTP_PORT) === 465, auth: { user: SMTP_USER, pass: SMTP_PASS } });
+type SmtpConfiguration = { host: string; port: number; user: string; pass: string; from: string };
+export type DemoApprovalEmailResult = "sent" | "not_configured" | "failed";
+
+function value(name: "SMTP_HOST" | "SMTP_PORT" | "SMTP_USER" | "SMTP_PASS" | "MAIL_FROM") { return process.env[name]?.trim() || ""; }
+
+function smtpConfiguration(): SmtpConfiguration | null {
+  const host = value("SMTP_HOST"), portValue = value("SMTP_PORT"), user = value("SMTP_USER"), pass = value("SMTP_PASS"), from = value("MAIL_FROM"), port = Number(portValue);
+  if (!host || !portValue || !user || !pass || !from || !Number.isInteger(port) || port < 1 || port > 65535) {
+    console.error("SMTP configuration is incomplete.", { SMTP_HOST_configured: Boolean(host), SMTP_PORT_configured: Boolean(portValue) && Number.isInteger(port) && port >= 1 && port <= 65535, SMTP_USER_configured: Boolean(user), SMTP_PASS_configured: Boolean(pass), MAIL_FROM_configured: Boolean(from) });
+    return null;
+  }
+  return { host, port, user, pass, from };
 }
 
+function transport(config: SmtpConfiguration) { return nodemailer.createTransport({ host: config.host, port: config.port, secure: false, auth: { user: config.user, pass: config.pass } }); }
+
 export async function sendApplicationEmails(application: Application) {
-  const mailer = transport();
-  const from = process.env.MAIL_FROM;
-  if (!mailer || !from) return false;
-  await mailer.sendMail({ from, to: application.email, subject: `Application received — ${application.jobTitle}`, text: `Hi ${application.fullName},\n\nThank you for applying for ${application.jobTitle} at KenoraTech. Our team will review your application and contact you if there is a match.\n\nKenoraTech` });
-  if (process.env.CAREERS_ADMIN_EMAIL) await mailer.sendMail({ from, to: process.env.CAREERS_ADMIN_EMAIL, subject: `New application — ${application.jobTitle}`, text: `${application.fullName} (${application.email}) applied for ${application.jobTitle}.\n\nReview it in the Careers admin panel.` });
+  const config = smtpConfiguration();
+  if (!config) return false;
+  const mailer = transport(config);
+  await mailer.sendMail({ from: config.from, to: application.email, subject: `Application received — ${application.jobTitle}`, text: `Hi ${application.fullName},\n\nThank you for applying for ${application.jobTitle} at KenoraTech. Our team will review your application and contact you if there is a match.\n\nKenoraTech` });
+  if (process.env.CAREERS_ADMIN_EMAIL) await mailer.sendMail({ from: config.from, to: process.env.CAREERS_ADMIN_EMAIL, subject: `New application — ${application.jobTitle}`, text: `${application.fullName} (${application.email}) applied for ${application.jobTitle}.\n\nReview it in the Careers admin panel.` });
   return true;
 }
 
 export async function sendMaintenanceSubscriptionEmail(email: string) {
-  const mailer = transport();
-  const from = process.env.MAIL_FROM;
-  if (!mailer || !from) return false;
-  await mailer.sendMail({ from, to: email, subject: "You're on the KenoraTech maintenance update list", text: "Thanks for subscribing. We'll email you when KenoraTech is back online." });
+  const config = smtpConfiguration();
+  if (!config) return false;
+  await transport(config).sendMail({ from: config.from, to: email, subject: "You're on the KenoraTech maintenance update list", text: "Thanks for subscribing. We'll email you when KenoraTech is back online." });
   return true;
 }
-export async function sendDemoApprovalEmail({ to, name, projectTitle, accessUrl, durationLabel }: { to: string; name?: string; projectTitle: string; accessUrl: string; durationLabel: string }) {
-  const mailer = transport();
-  const from = process.env.MAIL_FROM;
-  if (!mailer || !from) return false;
-  const greeting = name ? `Hi ${name},` : "Hello,";
-  await mailer.sendMail({ from, to, subject: `Your demo access for ${projectTitle}`, text: `${greeting}\n\nYour demo access has been approved. Use this private link to open ${projectTitle}:\n${accessUrl}\n\nYour access is available for ${durationLabel} after you first open the demo. Please do not share this link.\n\nKenoraTech` });
-  return true;
+
+export async function sendDemoApprovalEmail({ to, name, projectTitle, accessUrl, durationLabel }: { to: string; name?: string; projectTitle: string; accessUrl: string; durationLabel: string }): Promise<DemoApprovalEmailResult> {
+  const config = smtpConfiguration();
+  if (!config) return "not_configured";
+  const greeting = name ? `Hello ${name},` : "Hello,";
+  try {
+    await transport(config).sendMail({ from: config.from, to, replyTo: to, subject: "Your KenoraTech Demo Access", text: `${greeting}\n\nYour KenoraTech demo access request has been approved.\n\nYou can access your demo using the link below:\n\n${accessUrl}\n\nThis access link is valid for ${durationLabel} after you first open the demo. Please do not share this link.\n\nRegards,\nKenoraTech\nBuild • Innovate • Elevate\nhello@kenoratech.com` });
+    return "sent";
+  } catch (error) {
+    console.error("Demo approval email could not be sent.", { errorName: error instanceof Error ? error.name : "UnknownError" });
+    return "failed";
+  }
 }
