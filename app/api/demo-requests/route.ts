@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
 import { NextResponse, type NextRequest } from "next/server";
 import { isAuthorizedAdmin } from "@/lib/admin-auth";
-import { sendDemoApprovalEmail } from "@/lib/careers-mail";
+import { sendDemoApprovalEmail, smtpConfigurationStatus } from "@/lib/careers-mail";
 import { getMongoDb } from "@/lib/mongodb";
 import { createSecret, demoCollections, demoDurations, hashToken } from "@/lib/protected-demo";
 
@@ -31,7 +31,11 @@ export async function PATCH(request: NextRequest) {
     const emailResult = await sendDemoApprovalEmail({ to: item.email, name: item.name, projectTitle: item.projectTitle, accessUrl: url.toString(), durationLabel: durationKey });
     if (emailResult !== "sent") {
       await access.deleteOne({ _id: accessRecord.insertedId });
-      if (emailResult === "not_configured") return NextResponse.json({ error: "Email is not configured. Add SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, and MAIL_FROM, then try again.", code: "SMTP_NOT_CONFIGURED" }, { status: 503 });
+      if (emailResult === "not_configured") {
+        const configuration = smtpConfigurationStatus();
+        const missing = Object.entries(configuration).filter(([, configured]) => !configured).map(([name]) => name);
+        return NextResponse.json({ error: "Email is not configured. Add SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, and MAIL_FROM, then try again.", code: "SMTP_NOT_CONFIGURED", missing }, { status: 503 });
+      }
       return NextResponse.json({ error: "Demo approved, but the email could not be sent. Please check the email configuration.", code: "EMAIL_SEND_FAILED" }, { status: 502 });
     }
     await audit.insertOne({ demoAccessId: accessRecord.insertedId.toString(), action: "ACCESS_ISSUED", timestamp: now });
