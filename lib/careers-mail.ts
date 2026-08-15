@@ -23,8 +23,6 @@ export async function sendMaintenanceSubscriptionEmail(email: string) {
   await mailer.sendMail({ from, to: email, subject: "You're on the KenoraTech maintenance update list", text: "Thanks for subscribing. We'll email you when KenoraTech is back online." });
   return true;
 }
-<<<<<<< HEAD
-
 export async function sendDemoApprovalEmail({ to, name, projectTitle, accessUrl, durationLabel }: { to: string; name?: string; projectTitle: string; accessUrl: string; durationLabel: string }) {
   const mailer = transport();
   const from = process.env.MAIL_FROM;
@@ -33,5 +31,3 @@ export async function sendDemoApprovalEmail({ to, name, projectTitle, accessUrl,
   await mailer.sendMail({ from, to, subject: `Your demo access for ${projectTitle}`, text: `${greeting}\n\nYour demo access has been approved. Use this private link to open ${projectTitle}:\n${accessUrl}\n\nYour access is available for ${durationLabel} after you first open the demo. Please do not share this link.\n\nKenoraTech` });
   return true;
 }
-=======
->>>>>>> 9942a407379644f05b0b211c7550e4b05ba5d461
