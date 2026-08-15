@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { Bold, CalendarDays, CheckCircle2, ImagePlus, Italic, Link2, List, UploadCloud } from "lucide-react";
 import type { PortfolioProject } from "@/lib/portfolio";
@@ -45,9 +46,29 @@ export function ProjectForm({ initialProject }: { initialProject?: PortfolioProj
   const [watermarkEnabled, setWatermarkEnabled] = useState(initialProject?.watermarkEnabled || false);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState("");
+  const [uploading, setUploading] = useState(false);
 
   function updateField(field: keyof typeof form, value: string) {
     setForm((current) => ({ ...current, [field]: value }));
+  }
+
+  async function uploadCoverImage(file?: File) {
+    if (!file) return;
+    setUploading(true);
+    setError("");
+    try {
+      const token = window.localStorage.getItem("kenora-admin-token") || "";
+      const data = new FormData();
+      data.set("image", file);
+      const response = await fetch("/api/admin/portfolio-image", { method: "POST", headers: { Authorization: `Bearer ${token}` }, body: data });
+      const body = await response.json().catch(() => null);
+      if (!response.ok || !body?.imageUrl) throw new Error(body?.error || "Image upload failed.");
+      updateField("imageUrl", body.imageUrl);
+    } catch (uploadError) {
+      setError(uploadError instanceof Error ? uploadError.message : "Image upload failed.");
+    } finally {
+      setUploading(false);
+    }
   }
 
   return (
@@ -115,15 +136,17 @@ export function ProjectForm({ initialProject }: { initialProject?: PortfolioProj
       <section className="rounded-[24px] border border-white/[0.08] bg-[#0D1323]/82 p-5 backdrop-blur-2xl">
         <h2 className="text-lg font-bold text-white">Media</h2>
         <div className="mt-5 grid gap-4">
-          <div className="grid min-h-48 place-items-center rounded-[24px] border border-dashed border-[#8B5CF6]/30 bg-[#050816]/52 p-6 text-center">
+          <label className="grid min-h-48 cursor-pointer place-items-center overflow-hidden rounded-[24px] border border-dashed border-[#8B5CF6]/30 bg-[#050816]/52 p-6 text-center transition hover:border-[#3B82F6]/70">
             <div>
               <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#8B5CF6]/22 to-[#3B82F6]/22 text-[#9CCBFF]">
                 <UploadCloud className="h-7 w-7" />
               </div>
-              <p className="mt-4 text-sm font-bold text-white">Drop cover image here</p>
+              <p className="mt-4 text-sm font-bold text-white">{uploading ? "Uploading image..." : form.imageUrl ? "Cover image uploaded — choose another" : "Choose cover image"}</p>
               <p className="mt-1 text-xs text-white/44">PNG, JPG or WebP up to 8MB</p>
+              {form.imageUrl ? <div className="relative mx-auto mt-4 h-20 w-32 overflow-hidden rounded-lg border border-white/10"><Image src={form.imageUrl} alt="Uploaded project cover preview" fill sizes="128px" className="object-cover" /></div> : null}
             </div>
-          </div>
+            <input type="file" accept="image/png,image/jpeg,image/webp" className="sr-only" disabled={uploading} onChange={(event) => { void uploadCoverImage(event.target.files?.[0]); event.currentTarget.value = ""; }} />
+          </label>
           <div>
             <p className="text-sm font-semibold text-white/78">Gallery Upload</p>
             <div className="mt-3 grid grid-cols-3 gap-3">
