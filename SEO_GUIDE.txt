@@ -1,0 +1,47 @@
+KenoraTech SEO Guide
+
+Important: No developer can guarantee a first-place Google ranking. SEO improves technical quality and discoverability; rankings also depend on content usefulness, competitors, backlinks, domain history, user behavior, and time.
+
+Where SEO is stored
+
+Whole website / global SEO:
+app/layout.tsx
+- Default browser title and description.
+- Default keywords.
+- Canonical website URL.
+- Open Graph and Twitter sharing metadata.
+- Organization structured data (Schema.org JSON-LD) for search engines.
+
+Public crawling files:
+public/robots.txt
+- Tells search engines that public pages may be crawled.
+- Links to the sitemap.
+
+public/sitemap.xml
+- Lists public pages search engines should discover.
+- Add any important new public page URL here.
+
+Admin SEO:
+app/admin/layout.tsx
+- Uses noindex, nofollow so private admin pages cannot appear in Google.
+
+Single-page SEO:
+Each public page can define its own title and description in its page.tsx file using `export const metadata`.
+
+Examples:
+- app/about/page.tsx: About page SEO.
+- app/services/page.tsx: Services page SEO.
+- app/portfolio/page.tsx: Portfolio page SEO.
+- app/pricing/page.tsx: Pricing page SEO.
+- app/contact/page.tsx: Contact page SEO.
+
+How to improve ranking after deployment
+
+1. Set up Google Search Console and verify kenoratech.com.
+2. Submit https://kenoratech.com/sitemap.xml in Search Console.
+3. Create useful, original service and case-study content that matches the phrases clients actually search for.
+4. Earn genuine backlinks from client sites, business directories, and professional profiles.
+5. Keep pages fast, mobile-friendly, accessible, and regularly updated.
+6. Use clear page titles; do not stuff keywords.
+
+This guide is local-only and is ignored by Git.

@@ -7,6 +7,3 @@ dist
 .env.local
 .vercel
 *.log
-ARCHITECTURE_GUIDE.txt
-REPO_STRUCTURE_GUIDE.txt
-SEO_GUIDE.txt
