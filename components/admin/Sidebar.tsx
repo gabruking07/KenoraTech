@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   BadgeDollarSign,
+  CalendarDays,
   CircleUserRound,
   ClipboardList,
   BriefcaseBusiness,
@@ -22,6 +23,7 @@ import { cn } from "@/lib/utils";
 const menuItems = [
   { label: "Dashboard", href: "/admin/dashboard", icon: Home },
   { label: "Contact Messages", href: "/admin/messages", icon: MessageSquareText },
+  { label: "Bookings", href: "/admin/appointments", icon: CalendarDays },
   { label: "Portfolio Projects", href: "/admin/projects", icon: FolderKanban },
   { label: "Careers & Jobs", href: "/admin/jobs", icon: BriefcaseBusiness },
   { label: "Applications", href: "/admin/applications", icon: ClipboardList },

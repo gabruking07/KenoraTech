@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { BadgeDollarSign, CircleUserRound, FolderKanban, Home, Menu, MessageSquareText, Sparkles, Star, Users, X } from "lucide-react";
+import { BadgeDollarSign, CalendarDays, CircleUserRound, FolderKanban, Home, Menu, MessageSquareText, Sparkles, Star, Users, X } from "lucide-react";
 
 const mobileItems = [
   { label: "Dashboard", href: "/admin/dashboard", icon: Home }, { label: "Contact Messages", href: "/admin/messages", icon: MessageSquareText }, { label: "Portfolio Projects", href: "/admin/projects", icon: FolderKanban },
+  { label: "Bookings", href: "/admin/appointments", icon: CalendarDays },
   { label: "Services", href: "/admin/services", icon: Sparkles }, { label: "Team Members", href: "/admin/team", icon: Users }, { label: "Testimonials", href: "/admin/testimonials", icon: Star },
   { label: "Pricing Plans", href: "/admin/pricing", icon: BadgeDollarSign }, { label: "Admin Profile", href: "/admin/profile", icon: CircleUserRound }
 ];

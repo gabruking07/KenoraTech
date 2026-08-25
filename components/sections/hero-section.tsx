@@ -18,7 +18,7 @@ export function HeroSection() {
         </p>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <Button asChild size="lg">
-            <Link href="/contact">
+            <Link href="/book-consultation">
               Get Free Consultation <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>
