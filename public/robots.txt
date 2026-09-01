@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://kenoratech.com/sitemap.xml

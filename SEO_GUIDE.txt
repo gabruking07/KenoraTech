@@ -13,20 +13,22 @@ app/layout.tsx
 - Organization structured data (Schema.org JSON-LD) for search engines.
 
 Public crawling files:
-public/robots.txt
+app/robots.ts
 - Tells search engines that public pages may be crawled.
+- Keeps /admin, /api and /maintenance out of crawl paths.
 - Links to the sitemap.
 
-public/sitemap.xml
-- Lists public pages search engines should discover.
-- Add any important new public page URL here.
+app/sitemap.ts
+- Generates the sitemap at https://kenoratech.com/sitemap.xml.
+- Add any important new public page URL to the `pages` list.
 
 Admin SEO:
 app/admin/layout.tsx
 - Uses noindex, nofollow so private admin pages cannot appear in Google.
 
 Single-page SEO:
-Each public page can define its own title and description in its page.tsx file using `export const metadata`.
+Each public page should define its own title, description and canonical URL in its page.tsx file using `export const metadata`.
+Never copy the homepage canonical to another page: each public page must canonically point to itself.
 
 Examples:
 - app/about/page.tsx: About page SEO.
@@ -35,13 +37,36 @@ Examples:
 - app/pricing/page.tsx: Pricing page SEO.
 - app/contact/page.tsx: Contact page SEO.
 
+Daily SEO routine (15-25 minutes)
+
+1. Open Google Search Console > Performance. Compare the last 7 days with the previous 7 days. Note clicks, impressions, average position and the top three queries that gained or lost the most.
+2. Open Pages (Indexing). Investigate any new “not indexed” or server-error issue. Fix only genuine issues; do not request indexing for admin, API or intentionally private pages.
+3. Review one important page on a phone and desktop. Check that it loads, its primary heading is clear, its contact/booking action works, and all images have meaningful alt text where needed.
+4. Improve one small piece of useful content: clarify a service, add a client outcome to a case study, answer a real customer question, or link naturally to a related page. Do not add repetitive keyword lists.
+5. Check one new enquiry, client launch or project update for a legitimate mention/link opportunity (client website, portfolio, business profile or professional network). Seek relevant links, never buy spammy links.
+6. Record what changed in a simple date-and-change log. This makes it possible to connect improvements to later Search Console results.
+
+Weekly routine (45-60 minutes)
+
+1. Publish or substantially improve one original page, case study, FAQ answer or service section based on real client questions and Search Console queries.
+2. Check Core Web Vitals in Search Console or PageSpeed Insights and address the largest real issue first (commonly oversized images, unused scripts or layout shifts).
+3. Verify sitemap status in Search Console and submit newly created, important public URLs for indexing after deployment.
+4. Check that important pages link to Services, Portfolio and Contact/Book Consultation. Internal links should describe the destination clearly.
+
+Monthly routine (60-90 minutes)
+
+1. Review the top landing pages, queries and countries in Search Console. Refresh pages whose impressions are growing but click-through rate is weak by improving their title and description.
+2. Review business details (phone, email, services and portfolio) for accuracy across the website and any business profiles.
+3. Audit the sitemap after adding or removing public pages, then deploy and resubmit it if needed.
+
 How to improve ranking after deployment
 
-1. Set up Google Search Console and verify kenoratech.com.
+1. Set up Google Search Console and verify kenoratech.com. Also set up Google Analytics if it is not already installed.
 2. Submit https://kenoratech.com/sitemap.xml in Search Console.
 3. Create useful, original service and case-study content that matches the phrases clients actually search for.
 4. Earn genuine backlinks from client sites, business directories, and professional profiles.
 5. Keep pages fast, mobile-friendly, accessible, and regularly updated.
 6. Use clear page titles; do not stuff keywords.
+7. After changing SEO code or content, run `npm run build` before deployment.
 
 This guide is local-only and is ignored by Git.

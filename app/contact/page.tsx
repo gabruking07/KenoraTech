@@ -6,7 +6,8 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Book a free consultation with Kenora Tech for your next website, web application or digital product."
+  description: "Contact KenoraTech to discuss your website, web application, e-commerce store or digital product. Book a free consultation.",
+  alternates: { canonical: "/contact" }
 };
 
 export default function ContactPage() {

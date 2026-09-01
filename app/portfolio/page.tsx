@@ -3,7 +3,8 @@ import { PortfolioPage as PortfolioPageContent } from "@/components/portfolio/Po
 
 export const metadata: Metadata = {
   title: "Portfolio",
-  description: "Explore KenoraTech portfolio projects across SaaS, AI, analytics, cloud, branding and digital products."
+  description: "Explore KenoraTech case studies and digital projects across SaaS, AI, analytics, cloud, branding and web development.",
+  alternates: { canonical: "/portfolio" }
 };
 
 export default function PortfolioPage() {

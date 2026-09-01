@@ -3,7 +3,8 @@ import { ProcessPageContent } from "@/components/sections/process-page-content";
 
 export const metadata: Metadata = {
   title: "Process",
-  description: "Explore KenoraTech's simple, transparent process from discovery to launch and ongoing growth."
+  description: "See KenoraTech's clear website and product development process, from discovery and design through launch and ongoing growth.",
+  alternates: { canonical: "/process" }
 };
 
 export default function ProcessPage() {

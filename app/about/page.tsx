@@ -9,7 +9,8 @@ import aboutImage from "@/assets/about.png";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "Meet Kenora Tech, a modern technology agency focused on clean strategy, thoughtful design and reliable engineering."
+  description: "Meet KenoraTech, a technology agency combining strategy, thoughtful design and reliable engineering for ambitious businesses.",
+  alternates: { canonical: "/about" }
 };
 
 const aboutCards = [

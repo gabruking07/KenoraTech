@@ -3,7 +3,8 @@ import { CareersPage } from "@/components/careers/careers-page";
 
 export const metadata: Metadata = {
   title: "Careers",
-  description: "Join KenoraTech and help build thoughtful digital products for ambitious businesses."
+  description: "Explore careers at KenoraTech and help build thoughtful websites, applications and digital products.",
+  alternates: { canonical: "/careers" }
 };
 
 export default function Page() {

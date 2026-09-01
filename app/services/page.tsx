@@ -3,7 +3,8 @@ import { ServicesPageContent } from "@/components/sections/services-page-content
 
 export const metadata: Metadata = {
   title: "Services",
-  description: "Explore KenoraTech services for web development, mobile apps and UI/UX design."
+  description: "Website development, web applications, e-commerce, UI/UX design and ongoing maintenance for growing businesses.",
+  alternates: { canonical: "/services" }
 };
 
 export default function ServicesPage() {
